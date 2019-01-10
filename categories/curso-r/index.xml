@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Curso R on Samuel Gnz</title>
+    <link>https://samuelgnz.github.io/categories/curso-r/</link>
+    <description>Recent content in Curso R on Samuel Gnz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es-es</language>
+    <lastBuildDate>Thu, 10 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://samuelgnz.github.io/categories/curso-r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nociones básicas de R</title>
+      <link>https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/</link>
+      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/</guid>
+      <description>IntroducciónEn este apunte se pretende desarrollar los recursos que ofrece el software estadístico R para el tratamiento y análisis de datos en el ámbito de las ciencias sociales. Para ello se trabajará con las bases de datos del Programa de Investigación sobre la Sociedad Argentina Contemporanea (PISAC) y se irá desarrollando las herramientas y potencialidades del software en función a estos datos. Comenzaremos en un primer momento con la instalación del software y luego pasaremos a la utilización del mismo.</description>
+    </item>
+    
+  </channel>
+</rss>

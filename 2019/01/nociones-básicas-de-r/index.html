@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es-es">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-SNAPSHOT">
+<meta name="author" content="Samuel Gonzalez">
+<meta name="keywords" content="tech, R, R Ciencias Sociales, R Studio, Blog R, R Studio Ciencias Sociales, R Socioeconomía">
+<meta name="description" content="IntroducciónEn este apunte se pretende desarrollar los recursos que ofrece el software estadístico R para el tratamiento y análisis de datos en el ámbito de las ciencias sociales. Para ello se trabajará con las bases de datos del Programa de Investigación sobre la Sociedad Argentina Contemporanea (PISAC) y se irá desarrollando las herramientas y potencialidades del software en función a estos datos. Comenzaremos en un primer momento con la instalación del software y luego pasaremos a la utilización del mismo.">
+
+
+<meta property="og:description" content="IntroducciónEn este apunte se pretende desarrollar los recursos que ofrece el software estadístico R para el tratamiento y análisis de datos en el ámbito de las ciencias sociales. Para ello se trabajará con las bases de datos del Programa de Investigación sobre la Sociedad Argentina Contemporanea (PISAC) y se irá desarrollando las herramientas y potencialidades del software en función a estos datos. Comenzaremos en un primer momento con la instalación del software y luego pasaremos a la utilización del mismo.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nociones básicas de R">
+<meta name="twitter:title" content="Nociones básicas de R">
+<meta property="og:url" content="https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/">
+<meta property="twitter:url" content="https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/">
+<meta property="og:site_name" content="Samuel Gnz">
+<meta property="og:description" content="IntroducciónEn este apunte se pretende desarrollar los recursos que ofrece el software estadístico R para el tratamiento y análisis de datos en el ámbito de las ciencias sociales. Para ello se trabajará con las bases de datos del Programa de Investigación sobre la Sociedad Argentina Contemporanea (PISAC) y se irá desarrollando las herramientas y potencialidades del software en función a estos datos. Comenzaremos en un primer momento con la instalación del software y luego pasaremos a la utilización del mismo.">
+<meta name="twitter:description" content="IntroducciónEn este apunte se pretende desarrollar los recursos que ofrece el software estadístico R para el tratamiento y análisis de datos en el ámbito de las ciencias sociales. Para ello se trabajará con las bases de datos del Programa de Investigación sobre la Sociedad Argentina Contemporanea (PISAC) y se irá desarrollando las herramientas y potencialidades del software en función a estos datos. Comenzaremos en un primer momento con la instalación del software y luego pasaremos a la utilización del mismo.">
+<meta property="og:locale" content="es-es">
+
+  
+    <meta property="article:published_time" content="2019-01-10T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2019-01-10T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Curso R">
+    
+  
+  
+    
+      <meta property="article:tag" content="R">
+    
+      <meta property="article:tag" content="Ciencias Sociales">
+    
+      <meta property="article:tag" content="Paquete">
+    
+      <meta property="article:tag" content="Datos">
+    
+      <meta property="article:tag" content="PISAC">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://samuelgnz.github.io/img/me.jpg">
+  <meta property="twitter:image" content="https://samuelgnz.github.io/img/me.jpg">
+
+
+    <title>Nociones básicas de R</title>
+
+    <link rel="icon" href="https://samuelgnz.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://samuelgnz.github.io/css/style-nnm2spxvve8onlujjlegkkytaehyadd4ksxc1hyzzq9a2wvtrgbljqyulomn.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://samuelgnz.github.io/">Samuel Gnz</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://samuelgnz.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://samuelgnz.github.io/img/me.jpg" alt="Foto de autor" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://samuelgnz.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://samuelgnz.github.io/img/me.jpg" alt="Foto de autor" />
+        </a>
+        <h4 class="sidebar-profile-name">Samuel Gonzalez</h4>
+        
+          <h5 class="sidebar-profile-bio">Técnico en Investigación Socioeconómica</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://samuelgnz.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Inicio</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://samuelgnz.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categorías</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://samuelgnz.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Etiquetas</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://samuelgnz.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archivos</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://samuelgnz.github.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">Acerca de</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/samuelgnz_" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Nociones básicas de R
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2019-01-10T00:00:00Z">
+        
+  Enero 10, 2019
+
+      </time>
+    
+    
+  
+  
+    <span>en</span>
+    
+      <a class="category-link" href="https://samuelgnz.github.io/categories/curso-r">Curso R</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              
+
+
+<div class="text-justify">
+<h1 id="introduccion">Introducción</h1>
+<p>En este apunte se pretende desarrollar los recursos que ofrece el software estadístico R para el tratamiento y análisis de datos en el ámbito de las ciencias sociales. Para ello se trabajará con las bases de datos del Programa de Investigación sobre la Sociedad Argentina Contemporanea (PISAC) y se irá desarrollando las herramientas y potencialidades del software en función a estos datos. Comenzaremos en un primer momento con la instalación del software y luego pasaremos a la utilización del mismo.</p>
+<h2 id="instalacion-de-r-y-rstudio">Instalación de R y RStudio</h2>
+<p>Primeramente se requiere la instalación de R, para ello diríjase al <a href="http://r-project.org/">sitio web oficial</a> luego en el margen izquierdo seleccionar Download &gt; CRAN &gt; elegir el enlace para Argentina &gt; seleccionar el sistema operativo &gt; clic en “install for the first time” &gt; y por ultimo clic en Download R. Comenzará la descarga, luego seguir los pasos de la instalación. Posteriormente, instalar R Studio desde el <a href="https://www.rstudio.com/">sitio web</a> y dirigirse donde dice Download R Studio &gt; en la sección FREE hacer clic en Download now &gt; elegir el sistema operativo. Comenzará la descarga, luego seguir los pasos de la instalación.</p>
+<h2 id="que-es-r-studio-ide">¿Qué es R Studio IDE?</h2>
+<p>R Studio - Entorno de Desarrollo Integrado (IDE) es una interfaz de trabajo que fue desarrollada por la empresa R Studio, la cuál nos permite utilizar todas las herramientas y potencialidades que tiene el software R en un entorno de trabajo más cómodo y productivo. Puede ver más características <a href="https://www.rstudio.com/products/rstudio/features/">aquí</a>. Una vez instalado el programa, al ejecutarlo se puede apreciar que en su interfaz presenta cuatro ventanas diferentes de visualización; las mismas son el editor de código fuente (script) y visor de datos, Espacio de trabajo e historial, Consola y Fichero, visualizaciones, ayuda y paquetes, tal como se puede ver en la Imagen 1 a continuación.</p>
+<p><em>Imagen 1</em> <img src="https://samuelgnz.github.io/img/imagen1.png" /></p>
+<p><strong>Editor de código fuente (script)</strong>: es el espacio en donde se generan los códigos y las funciones.</p>
+<p><strong>Consola</strong>: en esta ventana se observan los resultados de las funciones y códigos que se ejecutan en el editor de código fuente (script).</p>
+<p><strong>Espacio de trabajo e historial</strong>: aquí se almacenan todos los objetos que se crean.</p>
+<p><strong>Fichero, visualizaciones, ayuda y paquetes</strong>: se observan aquí el fichero o directorio, los gráficos que se generan, se instalan paquetes y se ven los paquetes ya instalados, también se encuentra una sección de ayuda.</p>
+<h2 id="objetos-en-r">Objetos en R</h2>
+<p>Existen 5 tipos de datos básicos en R, los cuales són Vector, Factor, Matrix, Dataframe y Lista. De estos solamente nos interesa para el análisis de datos en ciencias sociales los siguientes:</p>
+<p><strong>• Vector</strong>: es un objeto que permite almacenar datos de tipo numérico y caracter.</p>
+<p><strong>• Factor</strong>: este tipo de objeto se utiliza para almacenar datos de tipo categórico, los mismos pueden ser nominales u ordinales.</p>
+<p><strong>• Dataframe</strong>: es el tipo de objeto que almacena los datos en forma de matriz de datos, es decir con filas y columnas, donde cada fila representa a una unidad de análisis y cada columna representa a una variable</p>
+<p>Aclaración: <em>Una vez estando en R Studio es importante que primeramente se defina el fichero de trabajo o directorio, ya que es allí donde se guardarán todos los archivos que se necesitarán y crearán de ahora en adelante. Entonces, en la parte superior derecha haciendo clic en Project &gt; New Project &gt; New Directory &gt; New Project y seleccionando la ruta definimos el directorio.</em></p>
+<h2 id="caracteres-especiales">Caracteres especiales</h2>
+<p><em>Tabla 1</em> <img src="https://samuelgnz.github.io/img/cuadro1.png" /></p>
+<p>Aclaración: <em>Se ejecutan o “corren” los comandos y funciones combinando las teclas <strong>Ctrl + Enter</strong> en Windows y si utiliza Mac debe combinar <strong>Cmd + Enter</strong> </em> Veamos algunos ejemplos simples sobre estos caracteres. Ubicados en la ventana de script, escribimos lo siguiente:</p>
+<pre class="r"><code># Se utiliza el símbolo &lt;- para asignarle algún valor al objeto
+A &lt;- 6
+A</code></pre>
+<pre><code>## [1] 6</code></pre>
+<pre class="r"><code># A su vez es posible crear otro objeto a partir del anterior
+B &lt;- A + 20
+B</code></pre>
+<pre><code>## [1] 26</code></pre>
+<pre class="r"><code># También con estos objetos se puede realizar operaciones aritméticas
+A + B</code></pre>
+<pre><code>## [1] 32</code></pre>
+<pre class="r"><code>C &lt;- A + B
+C</code></pre>
+<pre><code>## [1] 32</code></pre>
+<pre class="r"><code>D &lt;- B / A * C
+D</code></pre>
+<pre><code>## [1] 138.6667</code></pre>
+<h2 id="operadores-logicos">Operadores lógicos</h2>
+<p><em>Tabla 2</em> <img src="https://samuelgnz.github.io/img/cuadro2.png" /></p>
+<p>Ejemplos usando operadores lógicos:</p>
+<pre class="r"><code># Comparación lógica
+A &gt; B</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>A &lt; B</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>B == A</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>B != A</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>A &gt;= B</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>B &lt;= A</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<p>Continuemos creando objetos a modo de variables:</p>
+<pre class="r"><code># Crear un vector numérico 
+Edad &lt;- c(23, 50, 18, 30, 45, 34, 60) 
+Edad</code></pre>
+<pre><code>## [1] 23 50 18 30 45 34 60</code></pre>
+<p>Se puede ver que se trata del vector “Edad” con siete valores numéricos.</p>
+<pre class="r"><code># Crear un factor
+#Para la variable Asistio al curso con valores 1 = Si; 2 = No
+Asist_curso &lt;- c(1, 2, 2, 1, 1, 2, 1)
+
+# Indicamos que se trata de un objeto de tipo factor con categorías Si y No
+Asist_curso &lt;-  factor(Asist_curso, levels = c(1, 2), labels = c(&quot;Si&quot;, &quot;No&quot;))
+Asist_curso</code></pre>
+<pre><code>## [1] Si No No Si Si No Si
+## Levels: Si No</code></pre>
+<p>Se puede ver que se trata del factor “Asist_curso” con dos valores categóricos nominales.</p>
+<p>Suponiendo que se desea crear un factor ordinal para la variable Nivel educativo, con valores: 1 = Bajo, 2 = Medio, 3 = Alto, el procedimiento es el siguiente:</p>
+<pre class="r"><code># Crear un vector numérico que  registre los valores:
+Nivel_ed &lt;- c(1, 3, 3, 2, 1, 1, 2)
+
+# Convertir el  vector  en un factor e indicar los valores Bajo, Medio y Alto
+Nivel_ed &lt;- factor(Nivel_ed, levels = c(1, 2, 3), labels = c(&quot;Bajo&quot;,  &quot;Medio&quot;, &quot;Alto&quot;))
+
+#  Indicar que se trata de un factor ordinal:
+Nivel_ed &lt;- ordered(Nivel_ed)
+Nivel_ed</code></pre>
+<pre><code>## [1] Bajo  Alto  Alto  Medio Bajo  Bajo  Medio
+## Levels: Bajo &lt; Medio &lt; Alto</code></pre>
+<p>Se puede ver que se trata de un factor con valores ordinales Bajo, Medio y Alto.</p>
+<p>Ahora bien, para crear un dataframe (matriz de datos) añadiendo estos objetos (variables) que se han creado anteriormente, los pasos a seguir son los siguientes:</p>
+<pre class="r"><code># Crear el dataframe &quot;datos&quot; con la función data.frame()
+datos &lt;- data.frame(Edad, Asist_curso, Nivel_ed)
+datos</code></pre>
+<pre><code>##   Edad Asist_curso Nivel_ed
+## 1   23          Si     Bajo
+## 2   50          No     Alto
+## 3   18          No     Alto
+## 4   30          Si    Medio
+## 5   45          Si     Bajo
+## 6   34          No     Bajo
+## 7   60          Si    Medio</code></pre>
+<p>Aclaración: <em>Debe tener en cuenta que R sí hace diferencia entre caracteres. Por lo tanto, es necesario prestar mucha atención en el caso que use letras mayúsculas o minúsculas.</em></p>
+<p>A esta altura la interfaz de R Studio debería tener el siguiente aspecto:</p>
+<p><em>Imagen 2</em> <img src="https://samuelgnz.github.io/img/imagen2.png" /></p>
+<h2 id="paquetes">Paquetes</h2>
+<p>Los paquetes en R nos permiten incorporar herramientas adicionales y ampliar sus funcionalidades. R trae incorporado algunos paquetes básicos, pero podemos instalar otros de distintas maneras. Desde la consola a través del comando install.packages(), desde la ventana de visualización de paquetes, en la pestaña “packages” o bien desde la barra de menú en la pestaña “Tools” &gt; Install packages. Procedamos a instalar el paquete Foreign, que se utilizará más adelante para importar bases de datos mediante la función install.packages().</p>
+<p>Aclaración: <em>Basta con realizar la instalación solo una vez para que los paquetes queden guardados definitivamente, pero es necesario ejecutarlos cada vez que se inicia una nueva sesión en R mediante la función library().</em></p>
+<pre class="r"><code>install.packages(&quot;foreign&quot;)</code></pre>
+<h2 id="importar-bases-de-datos">Importar bases de datos</h2>
+<p>En este curso vamos a trabajar con las bases de datos del Programa de Investigación Sobre la Sociedad Argentina Contemporánea (PISAC) que están disponibles para la descarga <a href="http://pisac.mincyt.gob.ar/datos.php">aquí</a>. Las bases se encuentran disponibles en formatos .csv y .sav para lo que respecta a los hogares y las personas, de las cuales solo vamos a utilizar la que es en formato .sav. Antes de importar las bases de datos primeramente es necesario que las mismas estén guardadas en la carpeta del directorio de trabajo que definimos al comienzo cuando guardamos el proyecto. Entonces, con las bases ya guardadas en dicha carpeta vamos a comenzar importando las bases de los hogares y las personas.</p>
+<pre class="r"><code># Primero abrimos la librería del paquete foreign
+library(foreign)
+
+# Importar base
+hogares &lt;- read.spss(&quot;ENES_Hogares_version_final.sav&quot;, to.data.frame = TRUE)
+personas &lt;- read.spss(&quot;ENES_Personas_version_final.sav&quot;, to.data.frame = TRUE)</code></pre>
+<p>Hemos importado las bases de datos, ahora pasaríamos a explorarlas para ver en qué estado se encuentran los datos que contienen. Hay algunas funciones básicas que se utilizan para realizar esta operación:</p>
+<p><em>Tabla 3</em> <img src="https://samuelgnz.github.io/img/cuadro3.png" /></p>
+<p>Veamos algunos ejemplos:</p>
+<pre class="r"><code>class(hogares)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>length(personas)</code></pre>
+<pre><code>## [1] 157</code></pre>
+<pre class="r"><code>names(personas)</code></pre>
+<pre><code>##   [1] &quot;nocues&quot;      &quot;nhog&quot;        &quot;miembro&quot;     &quot;f_calib3&quot;    &quot;region&quot;     
+##   [6] &quot;aglo&quot;        &quot;t_aglo&quot;      &quot;estrato_U&quot;   &quot;cod_U&quot;       &quot;v108&quot;       
+##  [11] &quot;v109&quot;        &quot;v110&quot;        &quot;v111&quot;        &quot;v112&quot;        &quot;v113&quot;       
+##  [16] &quot;v114&quot;        &quot;v115&quot;        &quot;v116&quot;        &quot;c_hogar&quot;     &quot;t_hogar&quot;    
+##  [21] &quot;v117&quot;        &quot;v118a&quot;       &quot;v118b&quot;       &quot;v118c&quot;       &quot;v119&quot;       
+##  [26] &quot;v120&quot;        &quot;v121&quot;        &quot;v122&quot;        &quot;v123&quot;        &quot;v124&quot;       
+##  [31] &quot;v125&quot;        &quot;nivel_ed&quot;    &quot;v126&quot;        &quot;v127&quot;        &quot;v128&quot;       
+##  [36] &quot;v129&quot;        &quot;v130&quot;        &quot;v131&quot;        &quot;v132&quot;        &quot;v133&quot;       
+##  [41] &quot;v134a&quot;       &quot;v134b&quot;       &quot;v135&quot;        &quot;v136&quot;        &quot;v137&quot;       
+##  [46] &quot;v138&quot;        &quot;v139&quot;        &quot;v140&quot;        &quot;v141&quot;        &quot;v142&quot;       
+##  [51] &quot;v143&quot;        &quot;v144&quot;        &quot;v145&quot;        &quot;v146&quot;        &quot;v147a&quot;      
+##  [56] &quot;v147b&quot;       &quot;v147c&quot;       &quot;v148&quot;        &quot;v149a&quot;       &quot;v149b_pcia&quot; 
+##  [61] &quot;v150&quot;        &quot;v150b_pais&quot;  &quot;v151&quot;        &quot;v152a&quot;       &quot;v152b_lugar&quot;
+##  [66] &quot;v153&quot;        &quot;v154&quot;        &quot;v155&quot;        &quot;v156&quot;        &quot;v157&quot;       
+##  [71] &quot;v158&quot;        &quot;v159&quot;        &quot;v160&quot;        &quot;v161&quot;        &quot;v162&quot;       
+##  [76] &quot;v163&quot;        &quot;v164&quot;        &quot;v165&quot;        &quot;v166&quot;        &quot;v167&quot;       
+##  [81] &quot;v168&quot;        &quot;v169&quot;        &quot;v170&quot;        &quot;v171&quot;        &quot;v172&quot;       
+##  [86] &quot;v173&quot;        &quot;v174&quot;        &quot;v175&quot;        &quot;v176&quot;        &quot;v177&quot;       
+##  [91] &quot;v178&quot;        &quot;estado&quot;      &quot;v179&quot;        &quot;v180&quot;        &quot;v181&quot;       
+##  [96] &quot;v186&quot;        &quot;v187&quot;        &quot;v182caes&quot;    &quot;v183ciuo&quot;    &quot;v183cno&quot;    
+## [101] &quot;v188&quot;        &quot;v189&quot;        &quot;v190&quot;        &quot;v191&quot;        &quot;v192&quot;       
+## [106] &quot;v193&quot;        &quot;v194&quot;        &quot;v195&quot;        &quot;v196&quot;        &quot;v197&quot;       
+## [111] &quot;v198&quot;        &quot;v199&quot;        &quot;cat_ocup&quot;    &quot;egp11&quot;       &quot;CSO&quot;        
+## [116] &quot;v200&quot;        &quot;v201a&quot;       &quot;v201b&quot;       &quot;v201c&quot;       &quot;v201d&quot;      
+## [121] &quot;v202&quot;        &quot;v203a&quot;       &quot;v203b&quot;       &quot;v203c&quot;       &quot;v203d&quot;      
+## [126] &quot;v203e&quot;       &quot;v203f&quot;       &quot;v204&quot;        &quot;v205&quot;        &quot;v206a&quot;      
+## [131] &quot;v206b&quot;       &quot;v207&quot;        &quot;v208&quot;        &quot;v209&quot;        &quot;v210a&quot;      
+## [136] &quot;v210b&quot;       &quot;v211&quot;        &quot;v212&quot;        &quot;v213a&quot;       &quot;v213b&quot;      
+## [141] &quot;v213bi&quot;      &quot;v214a&quot;       &quot;v214b&quot;       &quot;v214bi&quot;      &quot;ITLi&quot;       
+## [146] &quot;ITLi_d&quot;      &quot;v215a&quot;       &quot;v215b&quot;       &quot;v215bi&quot;      &quot;v216a&quot;      
+## [151] &quot;v216b&quot;       &quot;v216bi&quot;      &quot;v217a&quot;       &quot;v217b&quot;       &quot;v217bi&quot;     
+## [156] &quot;ITI&quot;         &quot;ITI_d&quot;</code></pre>
+<p>Puede continuar ejecutando cada una de estas funciones siguiendo la estructura <em>funcion(nombre.del.dataframe)</em>.</p>
+<h2 id="seleccionar-una-variable">Seleccionar una variable</h2>
+<p>Si queremos observar alguna variable en particular de la base de datos, debemos utilizar el símbolo $. Por ejemplo, para seleccionar la variable Clase social de pertenencia del Principal Sostén del Hogar (el nombre de esta variable es v260a) de la base de hogares:</p>
+<pre class="r"><code>class(hogares$v260a)</code></pre>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<p>Otras funciones para explorar variables:</p>
+<p><em>Tabla 4</em> <img src="https://samuelgnz.github.io/img/cuadro4.png" /></p>
+<p>Algunos ejemplos:</p>
+<pre class="r"><code># Consultar los valores de la variable v260a
+levels(hogares$v260a)</code></pre>
+<pre><code>## [1] &quot;Clase baja&quot;       &quot;Clase obrera&quot;     &quot;Clase media baja&quot;
+## [4] &quot;Clase media&quot;      &quot;Clase media alta&quot; &quot;Clase alta&quot;      
+## [7] &quot;NS/NR&quot;</code></pre>
+<pre class="r"><code># Ver la cantidad de valores que tiene la variable v260a
+length(hogares$v260a)</code></pre>
+<pre><code>## [1] 8265</code></pre>
+<pre class="r"><code># Para la variable v235i - Ingreso Total del Hogar el mes pasado (imputado)
+# Promedio de v235i
+mean(hogares$v235i)</code></pre>
+<pre><code>## [1] 12928.3</code></pre>
+<pre class="r"><code># Resumen numérico de v235i
+summary(hogares$v235i)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     200    6056    9973   12928   16000  128371</code></pre>
+<h2 id="referencias">Referencias</h2>
+<p>Este post está basado en los siguientes aportes bobliográficos:</p>
+<p>WICKHAM H., GROLEMUND G. “R for Data Science” (2017). Recuperado de: <a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a></p>
+<p>MENDIZABAL S. “Taller de Introducción a R” (2017). Recuperado de: <a href="https://songeo.github.io/introduccion-r-bookdown/" class="uri">https://songeo.github.io/introduccion-r-bookdown/</a></p>
+<p>WEKSLER G., KOZLOWSKI D., SHOKIDA N., “Curso de R para procesamiento de datos de la Encuesta Permanente de Hogares” (2018). Recuperado de: <a href="https://diegokoz.github.io/Curso_R_EPH_clases/" class="uri">https://diegokoz.github.io/Curso_R_EPH_clases/</a></p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">ETIQUETADO EN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://samuelgnz.github.io/tags/r/">R</a>
+
+  <a class="tag tag--primary tag--small" href="https://samuelgnz.github.io/tags/ciencias-sociales/">Ciencias Sociales</a>
+
+  <a class="tag tag--primary tag--small" href="https://samuelgnz.github.io/tags/paquete/">Paquete</a>
+
+  <a class="tag tag--primary tag--small" href="https://samuelgnz.github.io/tags/datos/">Datos</a>
+
+  <a class="tag tag--primary tag--small" href="https://samuelgnz.github.io/tags/pisac/">PISAC</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">SIGUIENTE</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">ANTERIOR</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2019 Samuel Gonzalez. Todos los derechos reservados
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">SIGUIENTE</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">ANTERIOR</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsamuelgnz.github.io%2F2019%2F01%2Fnociones-b%25C3%25A1sicas-de-r%2F">
+          <i class="fa fa-facebook-official"></i><span>Compartir en Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fsamuelgnz.github.io%2F2019%2F01%2Fnociones-b%25C3%25A1sicas-de-r%2F">
+          <i class="fa fa-twitter"></i><span>Compartir en Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fsamuelgnz.github.io%2F2019%2F01%2Fnociones-b%25C3%25A1sicas-de-r%2F">
+          <i class="fa fa-google-plus"></i><span>Compartir en Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://samuelgnz.github.io/img/me.jpg" alt="Foto de autor" />
+    
+    <h4 id="about-card-name">Samuel Gonzalez</h4>
+    
+      <div id="about-card-bio">Técnico en Investigación Socioeconómica</div>
+    
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Posadas, Argentina
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Buscar" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no se encontraron artículos</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/">
+                <h3 class="media-heading">Nociones básicas de R</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2019
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">IntroducciónEn este apunte se pretende desarrollar los recursos que ofrece el software estadístico R para el tratamiento y análisis de datos en el ámbito de las ciencias sociales. Para ello se trabajará con las bases de datos del Programa de Investigación sobre la Sociedad Argentina Contemporanea (PISAC) y se irá desarrollando las herramientas y potencialidades del software en función a estos datos. Comenzaremos en un primer momento con la instalación del software y luego pasaremos a la utilización del mismo.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no se encontraron artículos"
+         data-message-one="1 artículo encontrado"
+         data-message-other="{n} artículos encontrados">
+         1 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('https://samuelgnz.github.io/images/cover2.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://samuelgnz.github.io/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/samuelgnz.github.io\/2019\/01\/nociones-b%C3%A1sicas-de-r\/';
+          
+            this.page.identifier = '\/2019\/01\/nociones-b%C3%A1sicas-de-r\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
