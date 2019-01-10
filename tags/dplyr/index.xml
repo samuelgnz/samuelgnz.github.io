@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>R on Samuel Gnz</title>
-    <link>https://samuelgnz.github.io/tags/r/</link>
-    <description>Recent content in R on Samuel Gnz</description>
+    <title>Dplyr on Samuel Gnz</title>
+    <link>https://samuelgnz.github.io/tags/dplyr/</link>
+    <description>Recent content in Dplyr on Samuel Gnz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
     <lastBuildDate>Thu, 10 Jan 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://samuelgnz.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://samuelgnz.github.io/tags/dplyr/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://samuelgnz.github.io/2019/01/manipulaci%C3%B3n-de-datos/</guid>
       <description>IntroducciónHasta este punto hemos visto como importar bases de datos y a partir de las funciones básicas realizamos una primera exploración a las bases. Además de la primera exploración, uno de los puntos importantes luego de importar dataframes, es la manipulación de los datos que contiene el dataframe con el que estamos trabajando. Es decir, verificar si los datos han sido cargados correctamente y decidir de qué manera adecuarlo a nuestros intereses de la investigación, así como también poder realizar resúmenes con estos datos.</description>
-    </item>
-    
-    <item>
-      <title>Nociones básicas de R</title>
-      <link>https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/</link>
-      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/</guid>
-      <description>IntroducciónEn este apunte se pretende desarrollar los recursos que ofrece el software estadístico R para el tratamiento y análisis de datos en el ámbito de las ciencias sociales. Para ello se trabajará con las bases de datos del Programa de Investigación sobre la Sociedad Argentina Contemporanea (PISAC) y se irá desarrollando las herramientas y potencialidades del software en función a estos datos. Comenzaremos en un primer momento con la instalación del software y luego pasaremos a la utilización del mismo.</description>
     </item>
     
   </channel>
