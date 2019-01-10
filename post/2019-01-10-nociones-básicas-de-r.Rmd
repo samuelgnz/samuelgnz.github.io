@@ -214,7 +214,7 @@ class(hogares$v260a)
 Otras funciones para explorar variables:
 
 *Tabla 4*
-![](/img/cuadro4.png)
+![](/img/cuadro4.PNG)
 
 
 Algunos ejemplos:
