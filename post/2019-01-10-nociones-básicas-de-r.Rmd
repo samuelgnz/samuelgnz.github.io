@@ -11,8 +11,6 @@ tags:
   - Paquete
   - Datos
   - PISAC
-keywords:
-  - tech
 ---
 
 <div class=text-justify>
