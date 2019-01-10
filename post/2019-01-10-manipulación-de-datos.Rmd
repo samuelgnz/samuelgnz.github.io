@@ -11,6 +11,9 @@ tags:
   - PISAC
   - R
   - dplyr
+  - tidyverse
+keywords:
+  - tech
 ---
 
 <div class=text-justify>
@@ -198,7 +201,7 @@ levels(NEA$Edad_recod)
 
 
 
-## Referencias
+#### Referencias
 Este post está basado en los siguientes aportes bobliográficos:
 
 WICKHAM H., GROLEMUND G. “R for Data Science” (2017). Recuperado de: https://r4ds.had.co.nz/
