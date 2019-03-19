@@ -23,7 +23,7 @@ Primeramente se requiere la instalación de R, para ello diríjase al [sitio web
 Posteriormente, instalar R Studio desde el [sitio web](https://www.rstudio.com/) y dirigirse donde dice Download R Studio > en la sección FREE hacer clic en Download now > elegir el sistema operativo. Comenzará la descarga, luego seguir los pasos de la instalación.
 
 ## ¿Qué es R Studio IDE?
-R Studio - Entorno de Desarrollo Integrado (IDE) es una interfaz de trabajo que fue desarrollada por la empresa R Studio, la cuál nos permite utilizar todas las herramientas y potencialidades que tiene el software R en un entorno de trabajo más cómodo y productivo. Puede ver más características [aquí](https://www.rstudio.com/products/rstudio/features/).
+R Studio - Entorno de Desarrollo Integrado (IDE) es una interfaz de trabajo que fue desarrollada por la companía R Studio, la cuál nos permite utilizar todas las herramientas y potencialidades que tiene el software R en un entorno de trabajo más cómodo y productivo. Puede ver más características [aquí](https://www.rstudio.com/products/rstudio/features/).
 Una vez instalado el programa, al ejecutarlo se puede apreciar que en su interfaz presenta cuatro ventanas diferentes de visualización; las mismas son el editor de código fuente (script) y visor de datos, Espacio de trabajo e historial, Consola y Fichero, visualizaciones, ayuda y paquetes, tal como se puede ver en la Imagen 1 a continuación.
 
 *Imagen 1*

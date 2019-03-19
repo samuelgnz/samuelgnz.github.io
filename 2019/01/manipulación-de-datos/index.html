@@ -183,16 +183,6 @@
     </ul>
     <ul class="sidebar-buttons">
       
-  <li class="sidebar-button">
-    
-      <a class="sidebar-button-link " href="https://twitter.com/samuelgnz_" target="_blank" rel="noopener">
-    
-      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
-      
-      <span class="sidebar-button-desc">Twitter</span>
-    </a>
-  </li>
-
 
     </ul>
     <ul class="sidebar-buttons">
@@ -333,7 +323,8 @@ NEA &lt;- NEA %&gt;% mutate(Clase_recod =
                          v260a == &quot;Clase media baja&quot; ~ &quot;Clase media&quot;,
                          v260a == &quot;Clase media&quot; ~ &quot;Clase media&quot;,
                          v260a == &quot;Clase media alta&quot; ~ &quot;Clase media&quot;,
-                         v260a == &quot;Clase alta&quot; ~ &quot;Clase alta&quot;))</code></pre>
+                         v260a == &quot;Clase alta&quot; ~ &quot;Clase alta&quot;,
+                         v260a == &quot;NS/NR&quot; ~ &quot;NS/NR&quot;))</code></pre>
 <pre class="r"><code># Pasamos la nueva variable a factor y consultamos los valores para verificar 
 NEA$Clase_recod &lt;- as.factor(NEA$Clase_recod)
 levels(NEA$Clase_recod)</code></pre>

@@ -138,7 +138,8 @@ NEA <- NEA %>% mutate(Clase_recod =
                          v260a == "Clase media baja" ~ "Clase media",
                          v260a == "Clase media" ~ "Clase media",
                          v260a == "Clase media alta" ~ "Clase media",
-                         v260a == "Clase alta" ~ "Clase alta"))
+                         v260a == "Clase alta" ~ "Clase alta",
+                         v260a == "NS/NR" ~ "NS/NR"))
 ```
 
 ```{r}
