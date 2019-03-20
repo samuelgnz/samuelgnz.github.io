@@ -2,21 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tidyverse on Samuel Gnz</title>
-    <link>https://samuelgnz.github.io/tags/tidyverse/</link>
+    <link>/tags/tidyverse/</link>
     <description>Recent content in Tidyverse on Samuel Gnz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Thu, 10 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://samuelgnz.github.io/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Visualización de datos</title>
+      <link>/2019/03/visualizaci%C3%B3n-de-datos/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/visualizaci%C3%B3n-de-datos/</guid>
+      <description>HUGOMORE42</description>
+    </item>
+    
+    <item>
       <title>Manipulación de datos</title>
-      <link>https://samuelgnz.github.io/2019/01/manipulaci%C3%B3n-de-datos/</link>
+      <link>/2019/01/manipulaci%C3%B3n-de-datos/</link>
       <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://samuelgnz.github.io/2019/01/manipulaci%C3%B3n-de-datos/</guid>
+      <guid>/2019/01/manipulaci%C3%B3n-de-datos/</guid>
       <description>IntroducciónHasta este punto hemos visto como importar bases de datos y a partir de las funciones básicas realizamos una primera exploración a las bases. Además de la primera exploración, uno de los puntos importantes luego de importar dataframes, es la manipulación de los datos que contiene el dataframe con el que estamos trabajando. Es decir, verificar si los datos han sido cargados correctamente y decidir de qué manera adecuarlo a nuestros intereses de la investigación, así como también poder realizar resúmenes con estos datos.</description>
     </item>
     

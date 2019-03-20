@@ -3,88 +3,111 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://samuelgnz.github.io/2019/01/manipulaci%C3%B3n-de-datos/</loc>
+    <loc>/2019/03/visualizaci%C3%B3n-de-datos/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2019/01/manipulaci%C3%B3n-de-datos/</loc>
     <lastmod>2019-01-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/</loc>
+    <loc>/2019/01/nociones-b%C3%A1sicas-de-r/</loc>
     <lastmod>2019-01-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/archives/</loc>
+    <loc>/archives/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/categories/</loc>
+    <loc>/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/tags/ciencias-sociales/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/tags/ciencias-sociales/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/categories/curso-r/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/categories/curso-r/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/tags/datos/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/tags/datos/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/tags/dplyr/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/tags/dplyr/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/tags/paquete/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/tags/ggplot/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/tags/pisac/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/tags/ggplot2/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/post/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/tags/paquete/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/tags/r/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/tags/pisac/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/post/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/tags/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/tags/r/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://samuelgnz.github.io/tags/tidyverse/</loc>
-    <lastmod>2019-01-10T00:00:00+00:00</lastmod>
+    <loc>/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tidyverse/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/visualizacion/</loc>
+    <lastmod>2019-03-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

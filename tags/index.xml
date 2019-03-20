@@ -2,75 +2,102 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Samuel Gnz</title>
-    <link>https://samuelgnz.github.io/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on Samuel Gnz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Thu, 10 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://samuelgnz.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Ciencias Sociales</title>
-      <link>https://samuelgnz.github.io/tags/ciencias-sociales/</link>
-      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      <link>/tags/ciencias-sociales/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://samuelgnz.github.io/tags/ciencias-sociales/</guid>
+      <guid>/tags/ciencias-sociales/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Datos</title>
-      <link>https://samuelgnz.github.io/tags/datos/</link>
-      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      <link>/tags/datos/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://samuelgnz.github.io/tags/datos/</guid>
+      <guid>/tags/datos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dplyr</title>
-      <link>https://samuelgnz.github.io/tags/dplyr/</link>
-      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      <link>/tags/dplyr/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://samuelgnz.github.io/tags/dplyr/</guid>
+      <guid>/tags/dplyr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ggplot</title>
+      <link>/tags/ggplot/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ggplot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ggplot2</title>
+      <link>/tags/ggplot2/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ggplot2/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Paquete</title>
-      <link>https://samuelgnz.github.io/tags/paquete/</link>
-      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      <link>/tags/paquete/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://samuelgnz.github.io/tags/paquete/</guid>
+      <guid>/tags/paquete/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pisac</title>
-      <link>https://samuelgnz.github.io/tags/pisac/</link>
-      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      <link>/tags/pisac/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://samuelgnz.github.io/tags/pisac/</guid>
+      <guid>/tags/pisac/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>https://samuelgnz.github.io/tags/r/</link>
-      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      <link>/tags/r/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://samuelgnz.github.io/tags/r/</guid>
+      <guid>/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tidyverse</title>
-      <link>https://samuelgnz.github.io/tags/tidyverse/</link>
-      <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
+      <link>/tags/tidyverse/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://samuelgnz.github.io/tags/tidyverse/</guid>
+      <guid>/tags/tidyverse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Visualizacion</title>
+      <link>/tags/visualizacion/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/visualizacion/</guid>
       <description></description>
     </item>
     

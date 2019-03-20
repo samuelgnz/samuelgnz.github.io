@@ -1,0 +1,23 @@
+---
+title: Visualización de datos
+author: Samuel González
+date: '2019-03-20'
+slug: visualización-de-datos
+categories:
+  - Curso R
+tags:
+  - Ciencias Sociales
+  - Datos
+  - dplyr
+  - Paquete
+  - PISAC
+  - R
+  - tidyverse
+  - ggplot2
+  - ggplot
+  - visualizacion
+keywords:
+  - tech
+---
+
+<!--more-->

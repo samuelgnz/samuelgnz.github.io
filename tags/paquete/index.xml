@@ -2,21 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Paquete on Samuel Gnz</title>
-    <link>https://samuelgnz.github.io/tags/paquete/</link>
+    <link>/tags/paquete/</link>
     <description>Recent content in Paquete on Samuel Gnz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>es-es</language>
-    <lastBuildDate>Thu, 10 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://samuelgnz.github.io/tags/paquete/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/paquete/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Visualización de datos</title>
+      <link>/2019/03/visualizaci%C3%B3n-de-datos/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/visualizaci%C3%B3n-de-datos/</guid>
+      <description>HUGOMORE42</description>
+    </item>
+    
+    <item>
       <title>Nociones básicas de R</title>
-      <link>https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/</link>
+      <link>/2019/01/nociones-b%C3%A1sicas-de-r/</link>
       <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://samuelgnz.github.io/2019/01/nociones-b%C3%A1sicas-de-r/</guid>
+      <guid>/2019/01/nociones-b%C3%A1sicas-de-r/</guid>
       <description>IntroducciónEn este apunte se pretende desarrollar los recursos que ofrece el software estadístico R para el tratamiento y análisis de datos en el ámbito de las ciencias sociales. Para ello se trabajará con las bases de datos del Programa de Investigación sobre la Sociedad Argentina Contemporanea (PISAC) y se irá desarrollando las herramientas y potencialidades del software en función a estos datos. Comenzaremos en un primer momento con la instalación del software y luego pasaremos a la utilización del mismo.</description>
     </item>
     
