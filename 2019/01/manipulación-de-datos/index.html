@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-SNAPSHOT">
+<meta name="generator" content="Hugo 0.54.0 with theme Tranquilpeak 0.4.3-SNAPSHOT">
 <meta name="author" content="Samuel Gonzalez">
 <meta name="keywords" content="tech, R, R Ciencias Sociales, R Studio, Blog R, R Studio Ciencias Sociales, R Socioeconomía">
 <meta name="description" content="IntroducciónHasta este punto hemos visto como importar bases de datos y a partir de las funciones básicas realizamos una primera exploración a las bases. Además de la primera exploración, uno de los puntos importantes luego de importar dataframes, es la manipulación de los datos que contiene el dataframe con el que estamos trabajando. Es decir, verificar si los datos han sido cargados correctamente y decidir de qué manera adecuarlo a nuestros intereses de la investigación, así como también poder realizar resúmenes con estos datos.">
@@ -251,7 +251,7 @@ install.packages(&quot;dplyr&quot;)</code></pre>
 <p>La función <strong>arrange</strong> permite ordenar la base de datos en base a algún valor de una o más variables. Mediante esta función vamos a ordenar las bases de los hogares y de las personas por las variables Número identificador de vivienda (nocues) y Número identificador de hogar (nhog).</p>
 <pre class="r"><code># Abrimos la libreria
 library(dplyr)</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.3</code></pre>
 <pre class="r"><code># Ordenamos ambas bases con la funcion arrange 
 hogares &lt;- hogares %&gt;% arrange(nocues, nhog)
 personas &lt;- personas %&gt;% arrange(nocues, nhog)</code></pre>
@@ -407,7 +407,7 @@ levels(NEA$Edad_recod)</code></pre>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/visualizaci%C3%B3n-de-datos/" data-tooltip="Visualización de datos">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/visualizacion-de-datos/" data-tooltip="Visualización de datos">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">SIGUIENTE</span>
@@ -493,7 +493,7 @@ levels(NEA$Edad_recod)</code></pre>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/visualizaci%C3%B3n-de-datos/" data-tooltip="Visualización de datos">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/03/visualizacion-de-datos/" data-tooltip="Visualización de datos">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml">SIGUIENTE</span>
@@ -628,7 +628,7 @@ levels(NEA$Edad_recod)</code></pre>
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="/2019/03/visualizaci%C3%B3n-de-datos/">
+              <a class="link-unstyled" href="/2019/03/visualizacion-de-datos/">
                 <h3 class="media-heading">Visualización de datos</h3>
               </a>
               <span class="media-meta">
@@ -636,7 +636,7 @@ levels(NEA$Edad_recod)</code></pre>
                   Mar 3, 2019
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">HUGOMORE42</div>
+              <div class="media-content hide-xs font-merryweather">IntroducciónLuego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete ggplot2 que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>

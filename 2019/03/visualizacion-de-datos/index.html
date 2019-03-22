@@ -5,21 +5,21 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.53 with theme Tranquilpeak 0.4.3-SNAPSHOT">
+<meta name="generator" content="Hugo 0.54.0 with theme Tranquilpeak 0.4.3-SNAPSHOT">
 <meta name="author" content="Samuel Gonzalez">
-<meta name="keywords" content="tech, R, R Ciencias Sociales, R Studio, Blog R, R Studio Ciencias Sociales, R Socioeconomía">
-<meta name="description" content="HUGOMORE42">
+<meta name="keywords" content=", R, R Ciencias Sociales, R Studio, Blog R, R Studio Ciencias Sociales, R Socioeconomía">
+<meta name="description" content="IntroducciónLuego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete ggplot2 que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.">
 
 
-<meta property="og:description" content="HUGOMORE42">
+<meta property="og:description" content="IntroducciónLuego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete ggplot2 que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Visualización de datos">
 <meta name="twitter:title" content="Visualización de datos">
-<meta property="og:url" content="/2019/03/visualizaci%C3%B3n-de-datos/">
-<meta property="twitter:url" content="/2019/03/visualizaci%C3%B3n-de-datos/">
+<meta property="og:url" content="/2019/03/visualizacion-de-datos/">
+<meta property="twitter:url" content="/2019/03/visualizacion-de-datos/">
 <meta property="og:site_name" content="Samuel Gnz">
-<meta property="og:description" content="HUGOMORE42">
-<meta name="twitter:description" content="HUGOMORE42">
+<meta property="og:description" content="IntroducciónLuego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete ggplot2 que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.">
+<meta name="twitter:description" content="IntroducciónLuego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete ggplot2 que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.">
 <meta property="og:locale" content="es-es">
 
   
@@ -40,10 +40,6 @@
     
       <meta property="article:tag" content="Datos">
     
-      <meta property="article:tag" content="dplyr">
-    
-      <meta property="article:tag" content="Paquete">
-    
       <meta property="article:tag" content="PISAC">
     
       <meta property="article:tag" content="R">
@@ -51,8 +47,6 @@
       <meta property="article:tag" content="tidyverse">
     
       <meta property="article:tag" content="ggplot2">
-    
-      <meta property="article:tag" content="ggplot">
     
       <meta property="article:tag" content="visualizacion">
     
@@ -82,7 +76,7 @@
 
     
 
-    <link rel="canonical" href="/2019/03/visualizaci%C3%B3n-de-datos/">
+    <link rel="canonical" href="/2019/03/visualizacion-de-datos/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -242,10 +236,161 @@
               
 
 
+<div class="text-justify">
+<h2 id="introduccion">Introducción</h2>
+<p>Luego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete <strong>ggplot2</strong> que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.</p>
+<h2 id="instalacion">Instalación</h2>
+<p>Si ya tinstalamos previamente el paquete tidyverse no es necesario volver a realizar otra instalación, de lo contrario debe instalar el paquete ggplot2:</p>
+<pre class="r"><code>#y abrimos la librería
+library(ggplot2)
+#o abrimos el tidyverse
+library(tidyverse)</code></pre>
+<h2 id="la-gramatica-de-los-graficos-ggplot">La gramática de los gráficos (ggplot)</h2>
+<p>La estructura básica de la función ggplot se compone por tres argumentos necesarios: <code>data</code>, <code>aes</code> y <code>geom</code>. De esta manera, en <code>data</code> indicamos el dataframe del cual vamos a seleccionar las variables para graficar. En <code>aes</code> indicamos el mapeo estético, es decir, qué variables vamos a graficar y en qué ejes. El argumento <code>geom</code> hace referencia a las capas geométricas, que a su vez, va a depender del tipo de gráfico que deseemos generar. Ejemplo:</p>
+<pre class="r"><code>ggplot(data= dataframe, aes(x= variable1, y= variable2)) + geom_point</code></pre>
+<h1 id="grafico-de-dispersion">Gráfico de dispersión</h1>
+<p>Hagamos la prueba con un gráfico de dispersión utilizando las variables Ingreso neto de la Ocupación Principal (v213bi) y la Edad. Pero, previamente vamos a crear un nuevo dataframe que va a contener solamente las variables que necesitamos en el gráfico. Para ello usaremos el paquete dplyr.</p>
+<pre class="r"><code>#Abrimos la librería
+library(dplyr)
+data.graf1 &lt;- NEA %&gt;% filter(v213bi &gt; 0,                  #filtramos solo los ingresos mayores a 0
+                             Edad &gt;= 18,                  #y las edades mayores o iguales a 18 años
+                             !is.na(Clase_recod)) %&gt;%     #omitimos los casos NA en Clase_recod 
+  select(v213bi, Edad, Sexo, Clase_recod) %&gt;%             #seleccionamos otras variables que necesitaremos para graficar
+  rename(Clase = Clase_recod)                             #cambiamos el nombre de la variable</code></pre>
+<p>Entonces, a partir de este dataframe vamos a realizar el grafico:</p>
+<pre class="r"><code>ggplot(data= data.graf1, aes(x= Edad, y= v213bi)) + geom_point()</code></pre>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>En un principio la estética del gráfico es bastante simple, pero podemos ir mejorando a nuestro gusto agregando más parámetros a la sintaxís de la función, utilizando siempre el símbolo <code>+</code>.</p>
+<h5 id="tabla-6">Tabla 6</h5>
+<table>
+<thead>
+<tr class="header">
+<th>Parámetro</th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>labs()</td>
+<td>Etiquetas</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>title: titulo,</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>x: etiqueta eje x,</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>y: etiqueta eje y,</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>caption: subtítulo</td>
+</tr>
+<tr class="even">
+<td>theme()</td>
+<td>tema del gráfico</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>base_family: fuente,</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>base_size: tamaño fuente,</td>
+</tr>
+<tr class="odd">
+<td>scale_x_continuous()</td>
+<td>Ajustar eje x</td>
+</tr>
+<tr class="even">
+<td>scale_y_continuous()</td>
+<td>Ajustar eje y</td>
+</tr>
+<tr class="odd">
+<td>geom_point()</td>
+<td>Gráfico de dispersión</td>
+</tr>
+<tr class="even">
+<td>geom_bar()</td>
+<td>Gráfico de barras</td>
+</tr>
+<tr class="odd">
+<td>geom_histogram()</td>
+<td>Histograma</td>
+</tr>
+<tr class="even">
+<td>geom_boxplot()</td>
+<td>Diagrama de caja</td>
+</tr>
+<tr class="odd">
+<td>geom_freqpoly()</td>
+<td>Polígono de frecuencia</td>
+</tr>
+</tbody>
+</table>
+<p>En la <em>Tabla 6</em> se pueden ver sólo algunos de los parámetros de la función ggplot. Si desea apreciar el resto de las propiedades estéticas de los gráficos, puede consultar la <em>hoja de referencia</em> del paquete <a href="https://www.rstudio.com/wp-content/uploads/2015/04/ggplot2-spanish.pdf">aquí</a>. Retomemos el gráfico anterior para mejorar su estética</p>
+<pre class="r"><code>Grafico.1 &lt;- ggplot(data= data.graf1, aes(x= Edad, y= v213bi)) + 
+  geom_point(aes(color= Clase,              #agregamos una tercer variable
+                 shape= Clase),             #formas geometricas de la nube
+                 alpha= 0.8) +              #transparencia         
+  scale_y_continuous(limits = c(0,40000)) + #ajustamos limites del eje y
+  labs(title = &quot;Distribución del Ingreso neto de la Ocupación Principal (IOP) de las personas 
+según la edad y la clase social de pertenencia. NEA. 2015.&quot;,
+       y= &quot;IOP ($)&quot;,
+       caption = &quot;Fuente: elaboración propia en base al PISAC.&quot;) #agregamos etiquetas
 
+Grafico.1</code></pre>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Observe que además de agregar argumentos a la función, guardamos el gráfico en un objeto llamado <em>Grafico.1</em>. Ahora podemos seguir agregando argumentos a partir de este objeto.</p>
+<pre class="r"><code>Grafico.1 &lt;- Grafico.1 + geom_smooth(method = lm, se = FALSE) +  #incorporamos la recta de ajuste
+  theme_classic(base_family = &quot;serif&quot;,     # agregamos un tema y modificamos la fuente
+                base_size = 10)
+Grafico.1</code></pre>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<h1 id="histograma">Histograma</h1>
+<p>Vamos a crear un histograma utilizando la variable Ingreso neto de la Ocupación Principal, pero primeramente creamos el dataframe que necesitamos para graficar.</p>
+<pre class="r"><code>data.graf2 &lt;- NEA %&gt;% filter(v213bi &gt; 0,
+                             !is.na(Clase_recod),
+                             Edad_recod != &quot;Menos de 15&quot;) %&gt;% 
+  select(v213bi, Edad_recod, Clase_recod, f_calib3.x) %&gt;% 
+  rename(Edad = Edad_recod)</code></pre>
+<p>Y graficamos en este caso usando <code>geom_histogram</code></p>
+<pre class="r"><code>ggplot(data= data.graf2, aes(x= v213bi)) + geom_histogram()</code></pre>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-11-1.png" width="672" /> Podemos expandir los casos usando el argumento <code>weight</code>. Para esta base de datos, la variable ponderadora de casos es <em>factor de calibración</em> (f_calib3); por lo tanto, la incorporamos a la función y agregamos una segunda variable que es la Edad.</p>
+<pre class="r"><code>ggplot(data= data.graf2, aes(x= v213bi, weight= f_calib3.x)) +
+  geom_histogram(aes(fill = Edad),
+                 color = &quot;white&quot;) #las lineas en color blanco</code></pre>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-12-1.png" width="672" /> Observe que ahora las frecuencias de las barras han aumentado porque se expandieron los casos, además las barras se dividen en función a los valores de la tercer variable Edad. También, como se habrá podido dar cuenta, las frecuencias de las barras del histograma están expresadas en valores absolutos. Si lo que deseamos es que las frecuencias se expresen valores porcentuales, necesitamos instalar adicionalmente el paquete <code>scales</code>, que nos ayuda a modificar las escalas del eje y.</p>
+<pre class="r"><code>#Instalamos el paquete
+install.packages(&quot;scales&quot;)</code></pre>
+<pre class="r"><code>#Abrimos la librería
+library(scales)
 
-HUGOMORE42
-
+#Ahora procedemos a modificar las frecuencias
+Grafico.2 &lt;- ggplot(data= data.graf2, aes(x= v213bi, weight= f_calib3.x)) +
+  geom_histogram(aes(fill = Edad,
+                     y= stat(..count..)/sum(..count..)*100), #con este argumento cambiamos a valores porcentuales
+                 color = &quot;white&quot;,
+                 breaks = seq(0,40000, by= 2500)) #definimos la amplitud de los intervalos
+Grafico.2</code></pre>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-14-1.png" width="672" /> Modificamos los limites de los ejes, agregamos las etiquetas.</p>
+<pre class="r"><code>Grafico.2 &lt;- Grafico.2 + 
+  scale_x_continuous(limits = c(0,40000)) +
+  scale_y_continuous(limits = c(0,40)) +
+  labs(title = &quot;Distribución del Ingreso de la Ocupación Principal de las personas según la edad. NEA. 2015.&quot;,
+       x= &quot;IOP ($)&quot;,
+       y= &quot;Personas (%)&quot;,
+       caption = &quot;Fuente: elaboración propia en base a PISAC&quot;) +
+  theme_bw(base_family = &quot;serif&quot;,
+           base_size = 10)
+Grafico.2</code></pre>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><strong>Aclaración: el contenido del post está en proceso de finalización…</strong></p>
+</div>
 
               
             </div>
@@ -262,10 +407,6 @@ HUGOMORE42
 
   <a class="tag tag--primary tag--small" href="/tags/datos/">Datos</a>
 
-  <a class="tag tag--primary tag--small" href="/tags/dplyr/">dplyr</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/paquete/">Paquete</a>
-
   <a class="tag tag--primary tag--small" href="/tags/pisac/">PISAC</a>
 
   <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
@@ -273,8 +414,6 @@ HUGOMORE42
   <a class="tag tag--primary tag--small" href="/tags/tidyverse/">tidyverse</a>
 
   <a class="tag tag--primary tag--small" href="/tags/ggplot2/">ggplot2</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/ggplot/">ggplot</a>
 
   <a class="tag tag--primary tag--small" href="/tags/visualizacion/">visualizacion</a>
 
@@ -315,19 +454,19 @@ HUGOMORE42
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2019/03/visualizaci%C3%B3n-de-datos/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2019/03/visualizacion-de-datos/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2019/03/visualizaci%C3%B3n-de-datos/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2019/03/visualizacion-de-datos/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2019/03/visualizaci%C3%B3n-de-datos/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2019/03/visualizacion-de-datos/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -401,19 +540,19 @@ HUGOMORE42
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2019/03/visualizaci%C3%B3n-de-datos/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2019/03/visualizacion-de-datos/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2019/03/visualizaci%C3%B3n-de-datos/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2019/03/visualizacion-de-datos/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2019/03/visualizaci%C3%B3n-de-datos/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2019/03/visualizacion-de-datos/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -443,19 +582,19 @@ HUGOMORE42
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2019%2F03%2Fvisualizaci%25C3%25B3n-de-datos%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2019%2F03%2Fvisualizacion-de-datos%2F">
           <i class="fa fa-facebook-official"></i><span>Compartir en Facebook</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2019%2F03%2Fvisualizaci%25C3%25B3n-de-datos%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2019%2F03%2Fvisualizacion-de-datos%2F">
           <i class="fa fa-twitter"></i><span>Compartir en Twitter</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2019%2F03%2Fvisualizaci%25C3%25B3n-de-datos%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2019%2F03%2Fvisualizacion-de-datos%2F">
           <i class="fa fa-google-plus"></i><span>Compartir en Google&#43;</span>
         </a>
       </li>
@@ -510,7 +649,7 @@ HUGOMORE42
           <div class="media">
             
             <div class="media-body">
-              <a class="link-unstyled" href="/2019/03/visualizaci%C3%B3n-de-datos/">
+              <a class="link-unstyled" href="/2019/03/visualizacion-de-datos/">
                 <h3 class="media-heading">Visualización de datos</h3>
               </a>
               <span class="media-meta">
@@ -518,7 +657,7 @@ HUGOMORE42
                   Mar 3, 2019
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather">HUGOMORE42</div>
+              <div class="media-content hide-xs font-merryweather">IntroducciónLuego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete ggplot2 que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -620,9 +759,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = '\/2019\/03\/visualizaci%C3%B3n-de-datos\/';
+          this.page.url = '\/2019\/03\/visualizacion-de-datos\/';
           
-            this.page.identifier = '\/2019\/03\/visualizaci%C3%B3n-de-datos\/'
+            this.page.identifier = '\/2019\/03\/visualizacion-de-datos\/'
           
         };
         (function() {

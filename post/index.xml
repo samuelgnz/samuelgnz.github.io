@@ -13,11 +13,11 @@
     
     <item>
       <title>Visualización de datos</title>
-      <link>/2019/03/visualizaci%C3%B3n-de-datos/</link>
+      <link>/2019/03/visualizacion-de-datos/</link>
       <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>/2019/03/visualizaci%C3%B3n-de-datos/</guid>
-      <description>HUGOMORE42</description>
+      <guid>/2019/03/visualizacion-de-datos/</guid>
+      <description>IntroducciónLuego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete ggplot2 que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.</description>
     </item>
     
     <item>
