@@ -210,10 +210,154 @@ Grafico.2 <- Grafico.2 +
 Grafico.2
 ```
 
+##Grafico de barras
+Hagamos un grafico de barras con la variable *Nivel educativo* pero primero vamos a recategorizar los valores:
+```{r}
+#Primero consultamos los valores
+levels(NEA$nivel_ed)
+
+#Recategorizamos
+NEA <- NEA %>% mutate(nivel_ed_recod =
+                        case_when(nivel_ed == "Menores de 5 años" ~ "Menores de 5 años",
+                                  nivel_ed == "Sin instrucción (incluye nunca asistió o sólo asistió a sala de 5)" ~ "Secundaria incompleta o menos",
+                                  nivel_ed == "Primaria/EGB incompleto" ~ "Secundaria incompleta o menos",
+                                  nivel_ed == "Secundario/Polimodal incompleto" ~ "Secundaria incompleta o menos",
+                                  nivel_ed == "Secundario/Polimodal completo" ~ "Secundaria completa",
+                                  nivel_ed == "Terciario incompleto" ~ "Terc/Univ. incompleto",
+                                  nivel_ed == "Terciario completo" ~ "Terc/Univ. completo",
+                                  nivel_ed == "Universitario incompleto" ~ "Terc/Univ. incompleto",
+                                  nivel_ed == "Universitario completo" ~ "Terc/Univ. completo",
+                                  nivel_ed == "Educación especial" ~ "Educación especial",
+                                  nivel_ed == "NS/NR" ~ "NS/NR"))
+#Pasamos la variable a factor
+NEA$nivel_ed_recod <- as.factor(NEA$nivel_ed_recod)
+levels(NEA$nivel_ed_recod)
+```
+
+Recategorizamos los valores en seis categorías, ahora procederemos a crear el dataframe para graficar:
+```{r}
+data.graf3 <- NEA %>% 
+  filter(nivel_ed_recod %in% c("Secundaria completa",
+                               "Secundaria incompleta o menos",
+                               "Terc/Univ. completo",
+                               "Terc/Univ. incompleto") &
+           Sexo != "Otro" &
+           Clase_recod != "Clase alta" &
+           !is.na(Est_civil) &
+           !is.na(Clase_recod)) %>% 
+  select(nivel_ed_recod, Sexo, Est_civil, f_calib3.x, Clase_recod) %>% 
+  mutate(nivel_ed_recod = factor(nivel_ed_recod, levels=c("Secundaria incompleta o menos",   #reordeno los valores para que queden ordenados en el grafico según las jerarquías
+                                      "Secundaria completa",
+                                      "Terc/Univ. incompleto",
+                                      "Terc/Univ. completo")))
+```
+
+Para este gráfico usamos ```geom_bar```:
+```{r}
+ggplot(data.graf3, aes(x= nivel_ed_recod, weight = f_calib3.x)) + 
+  geom_bar()
+```
+
+Y comenzamos a mejorarlo...
+```{r}
+Grafico.3 <- ggplot(data.graf3, aes(x= nivel_ed_recod)) + 
+  geom_bar(aes(y = ..count../sum(..count..)*100, 
+               fill = Est_civil), 
+           width = 0.5)   #disminuyo el ancho de las barras
+Grafico.3
+```
+Agregamos un tema y cambiamos la orientación de las barras:
+```{r}
+Grafico.3 <- Grafico.3 +
+  coord_flip()  #cambio la orientación de las barras a horizontal
+Grafico.3
+```
+
+##Facetas
+Las facetas nos permiten separar la distribucion de la variable en sub-poblaciones en función a las categorías de otra u otras variables adicionales. Hay dos formas de dividir los gráficos en facetas; ```facet_wrap()```: nos permite dividir las sub-poblaciones a partir de las categorías de una variable adicional; ```facet_grid()```: nos permite dividir las sub-poblaciones a partir de las categorías de dos variables adicionales. 
+Veamos algunos ejemplos continuando con el mismo gráfico.
+```{r}
+Grafico.3.a <- Grafico.3 +
+  facet_wrap(~Sexo) +  #separamos los sub-grupos por las categorías de la variable Sexo
+  labs(title= "Distribución del nivel educativo de las personas según el estado 
+civil y el sexo. NEA. 2015",
+       x= "Nivel educativo",
+       y= "Personas (%)",
+       caption = "Fuente: elaboración propia en base a PISAC.") +
+  theme_light(base_family = "serif",
+              base_size = 10)
+Grafico.3.a 
+```
+
+Incluyendo dos variables:
+```{r}
+Grafico.3.b <- Grafico.3 +
+  facet_grid(Clase_recod ~ Sexo) +  #separamos los sub-grupos por las categorías de las variables Clase de pertenencia y Sexo
+  labs(title= "Distribución del nivel educativo de las personas según el estado 
+civil, el sexo y la clase social de pertenencia. NEA. 2015",
+       x= "Nivel educativo",
+       y= "Personas (%)",
+       caption = "Fuente: elaboración propia en base a PISAC.") +
+  theme_light(base_family = "serif",
+              base_size = 10)
+Grafico.3.b
+```
+
+##Paletas de colores
+Hay una serie de paletas que podemos añadir a los gráficos para cambiar los colores,
+indicando la paleta que más nos agrade dentro del argumento ```scale_fill_brewer```. En este [enlace](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/figure/unnamed-chunk-14-1.png) puede apreciar algunas paletas del paquete *RColorBrewer*. A continuación, veamos un ejemplo de cómo incorporar una paleta de color, graficando un box-plot.
+
+##Box-plot
+Como paso previo a realizar el grafico, vamos a crear el dataframe que necesitamos para graficar y para ello, retomemos la base de datos **pisac** que unimos al principio del trabajo:
+```{r}
+data.graf4 <- pisac %>% 
+  filter(v213bi > 0,
+         !is.na(v237)) %>% 
+  select(v213bi, region.x, f_calib3.x, v237)
+
+#Graficamos
+ggplot(data= data.graf4, aes(y= v213bi, weight= f_calib3.x)) + geom_boxplot()
+```
+
+Observemos la distribución del ingreso por región:
+```{r}
+Grafico.4 <- ggplot(data= data.graf4, aes(y= v213bi, weight= f_calib3.x)) + 
+  geom_boxplot(aes(fill = region.x))
+Grafico.4
+```
+Agregamos la paleta *Dark2* y dividimos por facetas:
+```{r message=FALSE, warning=FALSE}
+Grafico.4 <- Grafico.4 +
+  scale_fill_brewer(palette = "Set3",  #modificamos los colores cambiando de paleta
+                    name = "Región",
+                    labels = c("Gran Buenos Aires",
+                              "Cuyo",                #renombramos las etiquetas
+                              "Pampeana",
+                              "Centro",
+                              "NEA",
+                              "NOA",
+                              "Patagonia")) + 
+  facet_wrap(~ v237) +
+  scale_y_continuous(limits = c(0,40000)) +  #restringimos los ingresos hasta 40000 pesos
+  theme_minimal(base_family = "serif",
+                base_size = 10) +
+  labs(title = "Distribución del Ingreso neto de la Ocupación Principal (IOP) de las personas según la region 
+y la percepción del ingreso. NEA. 2015.",
+       y= "IOP ($)") 
+  Grafico.4
+```
 
 
 
+#### Referencias
+Este post está basado en los siguientes aportes bobliográficos:
 
+WICKHAM H., GROLEMUND G. "R for Data Science" (2017).
+Recuperado de: https://r4ds.had.co.nz/
 
-**Aclaración: el contenido del post está en proceso de finalización...**
+WEKSLER G., KOZLOWSKI D., SHOKIDA N., "Curso de R para procesamiento de datos de la Encuesta Permanente de Hogares" (2018).
+Recuperado de: https://diegokoz.github.io/Curso_R_EPH_clases/
+
+MANGINI F., "6 TIPS TO MAKE YOUR VISUALIZATIONS LOOK PROFESSIONAL [UPDATED]" (2018).
+Recuperado de: http://www.thinkingondata.com/6-tips-to-make-your-visualizations-look-professional/
 </div>
