@@ -78,7 +78,7 @@ Luego de haber visto como manipular los datos disponibles en la base de datos de
 
 ##Instalación
 Si ya tinstalamos previamente el paquete tidyverse no es necesario volver a realizar otra instalación, de lo contrario debe instalar el paquete ggplot2:
-```{r eval=FALSE, include=FALSE}
+```{r, eval=FALSE}
 #Instalar paquete ggplot2
 install.packages("ggplot2")
 ```
@@ -90,7 +90,10 @@ library(tidyverse)
 ```
 
 ##La gramática de los gráficos (ggplot)
-La estructura básica de la función ggplot se compone por tres argumentos necesarios: ```data```, ```aes``` y ```geom```. De esta manera, en ```data``` indicamos el dataframe del cual vamos a seleccionar las variables para graficar. En ```aes``` indicamos el mapeo estético, es decir, qué variables vamos a graficar y en qué ejes. El argumento ```geom``` hace referencia a las capas geométricas, que a su vez, va a depender del tipo de gráfico que deseemos generar. Ejemplo: 
+La estructura básica de la función ggplot se compone por tres argumentos necesarios: ```data``` en el cuál indicamos el dataframe del cual vamos a seleccionar las variables para graficar;
+```aes``` dónde indicamos el mapeo estético, es decir, qué variables vamos a graficar y en qué ejes y 
+```geom``` hace referencia a las capas geométricas, que a su vez, va a depender del tipo de gráfico que deseemos generar. 
+Ejemplo: 
 ```{r, eval=FALSE}
 ggplot(data= dataframe, aes(x= variable1, y= variable2)) + geom_point
 ```
@@ -325,7 +328,7 @@ Grafico.4 <- ggplot(data= data.graf4, aes(y= v213bi, weight= f_calib3.x)) +
   geom_boxplot(aes(fill = region.x))
 Grafico.4
 ```
-Agregamos la paleta *Dark2* y dividimos por facetas:
+Agregamos la paleta *Set3* y dividimos por facetas:
 ```{r message=FALSE, warning=FALSE}
 Grafico.4 <- Grafico.4 +
   scale_fill_brewer(palette = "Set3",  #modificamos los colores cambiando de paleta
@@ -343,7 +346,9 @@ Grafico.4 <- Grafico.4 +
                 base_size = 10) +
   labs(title = "Distribución del Ingreso neto de la Ocupación Principal (IOP) de las personas según la region 
 y la percepción del ingreso. NEA. 2015.",
-       y= "IOP ($)") 
+       y = "IOP ($)",
+       caption = "Fuente: elaboración propia en base a PISAC") +
+  theme(axis.text.x=element_blank())  #eliminamos valores del eje x
   Grafico.4
 ```
 
@@ -360,4 +365,6 @@ Recuperado de: https://diegokoz.github.io/Curso_R_EPH_clases/
 
 MANGINI F., "6 TIPS TO MAKE YOUR VISUALIZATIONS LOOK PROFESSIONAL [UPDATED]" (2018).
 Recuperado de: http://www.thinkingondata.com/6-tips-to-make-your-visualizations-look-professional/
+
+THE R GRAPH GALLERY. "GENERAL GGPLOT2 TIPS". Recuperado de: https://www.r-graph-gallery.com/portfolio/ggplot2-package/ 
 </div>

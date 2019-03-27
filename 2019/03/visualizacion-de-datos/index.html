@@ -241,12 +241,14 @@
 <p>Luego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete <strong>ggplot2</strong> que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.</p>
 <h2 id="instalacion">Instalación</h2>
 <p>Si ya tinstalamos previamente el paquete tidyverse no es necesario volver a realizar otra instalación, de lo contrario debe instalar el paquete ggplot2:</p>
+<pre class="r"><code>#Instalar paquete ggplot2
+install.packages(&quot;ggplot2&quot;)</code></pre>
 <pre class="r"><code>#y abrimos la librería
 library(ggplot2)
 #o abrimos el tidyverse
 library(tidyverse)</code></pre>
 <h2 id="la-gramatica-de-los-graficos-ggplot">La gramática de los gráficos (ggplot)</h2>
-<p>La estructura básica de la función ggplot se compone por tres argumentos necesarios: <code>data</code>, <code>aes</code> y <code>geom</code>. De esta manera, en <code>data</code> indicamos el dataframe del cual vamos a seleccionar las variables para graficar. En <code>aes</code> indicamos el mapeo estético, es decir, qué variables vamos a graficar y en qué ejes. El argumento <code>geom</code> hace referencia a las capas geométricas, que a su vez, va a depender del tipo de gráfico que deseemos generar. Ejemplo:</p>
+<p>La estructura básica de la función ggplot se compone por tres argumentos necesarios: <code>data</code> en el cuál indicamos el dataframe del cual vamos a seleccionar las variables para graficar; <code>aes</code> dónde indicamos el mapeo estético, es decir, qué variables vamos a graficar y en qué ejes y <code>geom</code> hace referencia a las capas geométricas, que a su vez, va a depender del tipo de gráfico que deseemos generar. Ejemplo:</p>
 <pre class="r"><code>ggplot(data= dataframe, aes(x= variable1, y= variable2)) + geom_point</code></pre>
 <h1 id="grafico-de-dispersion">Gráfico de dispersión</h1>
 <p>Hagamos la prueba con un gráfico de dispersión utilizando las variables Ingreso neto de la Ocupación Principal (v213bi) y la Edad. Pero, previamente vamos a crear un nuevo dataframe que va a contener solamente las variables que necesitamos en el gráfico. Para ello usaremos el paquete dplyr.</p>
@@ -495,7 +497,7 @@ ggplot(data= data.graf4, aes(y= v213bi, weight= f_calib3.x)) + geom_boxplot()</c
 <pre class="r"><code>Grafico.4 &lt;- ggplot(data= data.graf4, aes(y= v213bi, weight= f_calib3.x)) + 
   geom_boxplot(aes(fill = region.x))
 Grafico.4</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-24-1.png" width="672" /> Agregamos la paleta <em>Dark2</em> y dividimos por facetas:</p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-24-1.png" width="672" /> Agregamos la paleta <em>Set3</em> y dividimos por facetas:</p>
 <pre class="r"><code>Grafico.4 &lt;- Grafico.4 +
   scale_fill_brewer(palette = &quot;Set3&quot;,  #modificamos los colores cambiando de paleta
                     name = &quot;Región&quot;,
@@ -512,7 +514,9 @@ Grafico.4</code></pre>
                 base_size = 10) +
   labs(title = &quot;Distribución del Ingreso neto de la Ocupación Principal (IOP) de las personas según la region 
 y la percepción del ingreso. NEA. 2015.&quot;,
-       y= &quot;IOP ($)&quot;) 
+       y = &quot;IOP ($)&quot;,
+       caption = &quot;Fuente: elaboración propia en base a PISAC&quot;) +
+  theme(axis.text.x=element_blank())  #eliminamos valores del eje x
   Grafico.4</code></pre>
 <p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <h4 id="referencias">Referencias</h4>
@@ -520,6 +524,7 @@ y la percepción del ingreso. NEA. 2015.&quot;,
 <p>WICKHAM H., GROLEMUND G. “R for Data Science” (2017). Recuperado de: <a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a></p>
 <p>WEKSLER G., KOZLOWSKI D., SHOKIDA N., “Curso de R para procesamiento de datos de la Encuesta Permanente de Hogares” (2018). Recuperado de: <a href="https://diegokoz.github.io/Curso_R_EPH_clases/" class="uri">https://diegokoz.github.io/Curso_R_EPH_clases/</a></p>
 <p>MANGINI F., “6 TIPS TO MAKE YOUR VISUALIZATIONS LOOK PROFESSIONAL [UPDATED]” (2018). Recuperado de: <a href="http://www.thinkingondata.com/6-tips-to-make-your-visualizations-look-professional/" class="uri">http://www.thinkingondata.com/6-tips-to-make-your-visualizations-look-professional/</a></p>
+<p>THE R GRAPH GALLERY. “GENERAL GGPLOT2 TIPS”. Recuperado de: <a href="https://www.r-graph-gallery.com/portfolio/ggplot2-package/" class="uri">https://www.r-graph-gallery.com/portfolio/ggplot2-package/</a></p>
 </div>
 
               
