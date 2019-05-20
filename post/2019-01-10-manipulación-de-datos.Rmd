@@ -19,10 +19,23 @@ keywords:
 <div class=text-justify>
 ## Introducción
 Hasta este punto hemos visto como importar bases de datos y a partir de las funciones básicas realizamos una primera exploración a las bases. Además de la primera exploración, uno de los puntos importantes luego de importar dataframes, es la manipulación de los datos que contiene el dataframe con el que estamos trabajando. Es decir, verificar si los datos han sido cargados correctamente y decidir de qué manera adecuarlo a nuestros intereses de la investigación, así como también poder realizar resúmenes con estos datos. 
-Existe un paquete llamado **dplyr** el cual es muy útil y fue diseñado para manipular dataframes. Este paquete contiene una serie de funciones que nos permite desde ordenar la base de datos hasta emparejar y crear resúmenes numéricos. A continuación se presenta una tabla que resume las funciones más utilizadas de este paquete.
+Existe un paquete llamado `dplyr` el cual es muy útil y fue diseñado para manipular dataframes. Este paquete contiene una serie de funciones que nos permiten manipular los datos para el análisis de los mismos. A continuación se presenta una tabla que resume las funciones más utilizadas de este paquete.
 
-**Tabla 5**
-![](/img/cuadro5.jpg)
+*Tabla 5*
+
+|Función    |Ejemplo de sintaxis                                                                   |
+|-----------|--------------------------------------------------------------------------------------|
+|arrange()  |arrange(variable1, variable2)                                                         |
+|left_join()|dataframe1 %>% left_join(., dataframe2, by = “variable”)                              |
+|filter()   |filter(condición lógica según valor de variable). Ejemplo, filter(variable == “valor”)|
+|select()   |select(variable1, variable2)                                                          |
+|mutate()   |mutate(variable_nueva = operación entre variables). Ejemplo: mutate(var_nueva = variable1/variable2)|
+|case_when  |case_when(condicion1 ~ "Valor1", condicion2 ~ "Valor2", condicion3 ~ "Valor3")        |
+|rename()   |rename(nombre_nuevo = nombre_viejo)                                                   |
+|summarise()|summarise(nombre_col = medida(variable)                                               |
+|group_by() |group_by(variable1) %>% summarise(nombre_col = medida(variable)                       |
+
+Iremos viendo más adelante cada una de estas funciones.
 
 ## Instalación
 Podemos instalar el paquete Tidyverse que contiene al paquete dplyr entre otros paquetes útiles para el analisis de datos o directamente instalar dplyr individualmente. 
@@ -35,7 +48,7 @@ install.packages("dplyr")
 ```
 
 ## Pipe
-Este paquete está diseñado para que todas las funciones trabajen encadenadamente mediante la utilización del pipe (tubería), el cual se escribe con el caracter %>% (se realiza combinando las teclas Ctrl + Shift + M o Cmd + Shift + M en Mac). La acción que realiza el pipe es llamar a un objeto que se encuentra a la izquierda y transformarlo mediante la función que se le indique a la derecha. El objeto que se indique a la izquierda no se verá afectado por cambios, ya que los resultados siempre van a estar separados. Iremos viendo con más detalle en los ejemplos. 
+Este paquete está diseñado para que todas las funciones trabajen encadenadamente mediante la utilización del **pipe** (tubería), el cual se escribe con el caracter ```%>%``` (se realiza combinando las teclas Ctrl + Shift + M o Cmd + Shift + M en Mac). La acción que realiza el pipe es llamar a un objeto que se encuentra a la izquierda y transformarlo mediante la función que se le indique a la derecha. El objeto que se indique a la izquierda no se verá afectado por cambios, a menos que se lo índique. Iremos viendo con más detalle en los ejemplos. 
 Ahora vamos a ver ejemplos para cada una de las funciones de este paquete trabajando con las bases que importamos anteriormente.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -48,7 +61,7 @@ personas <- read.spss("ENES_Personas_version_final.sav", to.data.frame = TRUE)
 ```
 
 ### Ordenar
-La función **arrange** permite ordenar la base de datos en base a algún valor de una o más variables. Mediante esta función vamos a ordenar las bases de los hogares y de las personas por las variables Número identificador de vivienda (nocues) y Número identificador de hogar (nhog).
+La función `arrange` permite ordenar la base de datos en base a algún valor de una o más variables. Mediante esta función vamos a ordenar las bases de los hogares y de las personas por las variables Número identificador de vivienda (nocues) y Número identificador de hogar (nhog).
 ```{r, message=FALSE}
 # Abrimos la libreria
 library(dplyr)
@@ -59,7 +72,7 @@ personas <- personas %>% arrange(nocues, nhog)
 ```
 
 ### Emparejar
-Existen cuatro tipos de uniones para bases de datos en el paquete dplyr y puede encontrar más información al respecto de cada una de ellas [aquí](https://dplyr.tidyverse.org/reference/join.html). De estas cuatro maneras de emparejar bases, solamente nos vamos a centrar en una, es decir, en la que se realiza mediante la función **left_join**. Siendo así, respetando la cantidad de casos y de variables que tiene la base de personas, vamos a agregar las variables de la base de hogares. Esto le haremos de la siguiente manera:
+Existen cuatro tipos de uniones para bases de datos en el paquete dplyr y puede encontrar más información al respecto de cada una de ellas [aquí](https://dplyr.tidyverse.org/reference/join.html). De estas cuatro maneras de emparejar bases, solamente nos vamos a centrar en una, es decir, en la que se realiza mediante la función `left_join`. Siendo así, respetando la cantidad de casos y de variables que tiene la base de personas, vamos a agregar las variables de la base de hogares. Esto le haremos de la siguiente manera:
 ```{r, message=FALSE}
 # Emparejar bases
 pisac <- personas %>% left_join(., hogares, by = c("nocues", "nhog"))
@@ -69,7 +82,22 @@ pisac <- personas %>% left_join(., hogares, by = c("nocues", "nhog"))
 Entonces, hemos emparejado ambas bases y además también guardamos este resultado en un nuevo dataframe que se llama pisac. De esta manera, en esta nueva base incorporamos a la base de las personas todas las variables de las base de los hogares respetando las variables que funcionan como “key” o “llave” (nocues y nhog).
 
 ### Filtrar y seleccionar
-Con la función **filter** es posible filtrar la base acorde al cumplimiento de condiciones lógicas y la función **select** permite especificar la serie de columnas o variables que se desea conservar o descartar de un dataframe. Entonces, a partir de esta nueva base pisac, que fue el resultado del emparejamiento de las bases personas y hogares, vamos a filtrar solamente los casos de la región del NEA y a su vez le pediremos que seleccione solamente algunas variables del total de todas las variables.
+Con la función `filter` es posible filtrar la base de datos acorde al cumplimiento de condiciones lógicas y la función `select` permite especificar la serie de columnas o variables que se desea conservar o descartar de un dataframe. 
+A continuación se presenta una tabla que resume las distintas condiciones lógicas que podemos utilizar para filtrar casos con la funcion `filter`.
+
+*Tabla 6*
+
+|Símbolo|Significado     |Símbolo|Significado     |
+|-------|----------------|-------|----------------|
+|>      |Mayor que       |!=     |Distinto a      |
+|<      |Menor que       |%in%   |Dentro del grupo|
+|==     |Igual a         |is.na  |Es NA           |
+|>=     |Mayor o igual a |!is.na |No es NA        |
+|<=     |Menor o igual a |&, `|` |y, o            |
+
+*Fuente: https://derek-corcoran-barrios.github.io/Libro/_book/tidydata.html#filter *
+
+Entonces, a partir de esta nueva base pisac, que fue el resultado del emparejamiento de las bases personas y hogares, vamos a filtrar solamente los casos de la región del NEA y a su vez le pediremos que seleccione solamente algunas variables del total de variables que contiene el dataframe.
 ```{r}
 # Filtrar la base emparejada por la region NEA y seleccionar variables
 NEA <- pisac %>% 
@@ -78,10 +106,10 @@ NEA <- pisac %>%
 estado, v179, nocues, nhog, f_calib3.x, region.x, aglo.x, v12, v14, v15, v16, v19, v235i, v237, v259a, v260a, v213bi)
 ```
 
-De esta manera, tendríamos creado un nuevo dataframe que se llama NEA y que contiene únicamente los casos correspondientes a la región del NEA y 23 variables que fueron seleccionadas del mismo dataframe llamado pisac.
+De esta manera, tendríamos creado un nuevo dataframe que se llama NEA y que contiene únicamente los casos correspondientes a la región del NEA y 23 variables que fueron seleccionadas del dataframe llamado pisac.
 
 ### Renombrar
-Podemos cambiar los nombres a las variables con la función **rename**. A modo de ejemplo modifiquemos solo tres nombres de las variable v108 a Edad, v109 a Sexo y v116 a Est_civil. 
+Podemos cambiar los nombres a las variables con la función `rename`. A modo de ejemplo modifiquemos solo tres nombres de las variable v108 a Edad, v109 a Sexo y v116 a Est_civil. 
 ```{r}
 # Renombrar variables
 NEA <- NEA %>% rename(Edad = v108,
@@ -90,32 +118,35 @@ NEA <- NEA %>% rename(Edad = v108,
 ```
 
 ### Resumir
-La función **summarise** nos permite realizar tablas de resúmenes numéricos con la información original de una variable. Vamos a crear a modo de ejemplo una tabla que contenga el promedio de la variable *Ingreso total del hogar*. 
+La función `summarise` nos permite realizar tablas de resúmenes numéricos con la información original de una variable. Vamos a crear a modo de ejemplo una tabla que contenga algunas medidas para la variable *Ingreso total del hogar* (v235i). 
 ```{r}
 # Resumen 
-Promedio_ing <- NEA %>% summarise(Promedio_ing = mean(v235i))
+Resumen_igreso <- NEA %>% summarise(Promedio_ing = mean(v235i),
+                                    Mediana = median(v235i),
+                                    Varianza = var(v235i),
+                                    "Desvío estandar" = sd(v235i))
 
-Promedio_ing
+Resumen_igreso
 ```
 
 ### Agrupar
-La función **group_by** se complementa con la función summarise y permite generar resúmenes numéricos para cada valor categórico de una variable cualitativa. Por ejemplo, podemos generar una tabla que contenga los resúmenes promedio, mediana, varianza y desvío estándar del *Ingreso total del hogar* (v235i) para cada valor de la variable Sexo.
+La función `group_by` se complementa con la función `summarise` y permite generar resúmenes numéricos para cada valor categórico de una variable cualitativa. Por ejemplo, podemos generar la misma tabla de resumen anterior pero ahora agrupando las medidas para cada valor de la variable *Nivel educativo* (nivel_ed).
 ```{r}
 # Resumen por grupo
-Resumen_sexo <- NEA %>% 
-  group_by(Sexo) %>%  
+Ingreso_x_educ <- NEA %>% 
+  group_by(nivel_ed) %>%  
   summarise(Promedio = mean(v235i),
             Mediana = median(v235i),
             Varianza = var(v235i),
-            'Desvio estandar' = sd(v235i))
+            "Desvio estandar" = sd(v235i))
 
-Resumen_sexo
+Ingreso_x_educ
 ```
 
-Observe que en el caso del nombre de la columna Desvío estándar, el mismo está indicado entre apostrofes (‘ ‘), esto permite crear nombres de columnas que estén separados con espacio.
+Observe que en el caso del nombre de la columna Desvío estándar, el mismo está indicado entre comillas, esto permite crear nombres de columnas que estén separados con espacio.
 
-### Recodificar
-Utilizando la función **mutate** podemos agregar y crear nuevas variables a partir de operaciones con la misma o entre otras variables. Veamos cómo podemos recodificar una variable numérica realizando una operación matemática para crear y agregar al dataframe NEA la varibale Ingreso total del hogar per cápita (ITH_PC) que será resultado del cociente entre las variables Ingreso total del hogar imputado (v235i) y Tamaño del hogar (t_hogar).
+###Transformar
+Utilizando la función `mutate` podemos agregar y crear nuevas variables a partir de operaciones con la misma o entre otras variables. Veamos cómo podemos recodificar una variable numérica realizando una operación matemática para crear y agregar al dataframe NEA la varibale *Ingreso total del hogar per cápita* (ITH_PC) que será resultado del cociente entre las variables *Ingreso total del hogar imputado* (v235i) y *Tamaño del hogar* (t_hogar).
 ```{r}
 # Recodificar variable
 NEA <- NEA %>% mutate(ITH_PC = v235i/t_hogar)
@@ -125,7 +156,7 @@ head(NEA$ITH_PC, 5)
 ```
 
 ### Caso cuando
-La función **case_when** permite crear una nueva variable generando los valores de la misma a partir de condiciones específicas. En caso de que no se cumpla las condiciones indicadas la variable tomará valores NA (valor faltante o valor perdido). Esta función se complementa con la función mutate y es útil para recategorizar valores de una variable cualitativa. Continuemos recategorizando los valores de la variable *Clase social de pertenencia* (v260a), agrupando los valores en Clase baja, Clase obrera, Clase media y Clase alta.
+La función `case_when` permite crear una nueva variable generando los valores de la misma a partir de condiciones específicas. En caso de que no se cumpla las condiciones indicadas la variable tomará valores NA (valor faltante o valor perdido). Esta función se complementa con la función `mutate` y es útil para recategorizar valores de una variable cualitativa. Continuemos recategorizando los valores de la variable *Clase social de pertenencia* (v260a), agrupando los valores en Clase baja, Clase obrera, Clase media y Clase alta.
 ```{r}
 # Primero observamos cuales son los valores de la variable
 levels(NEA$v260a)
@@ -135,27 +166,29 @@ levels(NEA$v260a)
 NEA <- NEA %>% mutate(Clase_recod = 
                case_when(v260a == "Clase baja" ~ "Clase baja",
                          v260a == "Clase obrera" ~ "Clase obrera",
-                         v260a == "Clase media baja" ~ "Clase media",
-                         v260a == "Clase media" ~ "Clase media",
-                         v260a == "Clase media alta" ~ "Clase media",
+                         v260a %in% c("Clase media baja",
+                                      "Clase media",
+                                      "Clase media alta") ~ "Clase media",
                          v260a == "Clase alta" ~ "Clase alta",
-                         v260a == "NS/NR" ~ "NS/NR"))
-```
-
-```{r}
-# Pasamos la nueva variable a factor y consultamos los valores para verificar 
-NEA$Clase_recod <- as.factor(NEA$Clase_recod)
+                         v260a == "NS/NR" ~ "NS/NR")) %>% 
+  mutate(Clase_recod = ordered(Clase_recod,               
+                               levels = c("Clase baja",     # indicamos que se trata de una variable ordinal
+                                          "Clase obrera",   # y ordenamos los valores
+                                          "Clase media",
+                                          "Clase alta",
+                                          "NS/NR")))
+# Consultamos los valores
 levels(NEA$Clase_recod)
 ```
-
+ 
 ## Valores NA (missing values)
-En R los valores faltantes o valores perdidos se los conocen como **NA**, es común que cuando trabajemos con bases de datos nos encontremos con estos valores. Para saber si una variable contiene valores NA se utiliza la función is.na la cual devuelve un resultado lógico, es decir, si el objeto contiene valores perdidos el resultado será TRUE, de lo contrario será FALSE. Veamos un ejemplo con la variable Condición de inactividad (v179).
+En R los valores faltantes o valores perdidos se los conocen como `NA`, es común que cuando trabajemos con bases de datos nos encontremos con estos valores. Para saber si una variable contiene valores `NA` se utiliza la función is.na la cual devuelve un resultado lógico, es decir, si el objeto contiene valores perdidos el resultado será `TRUE`, de lo contrario será `FALSE`. Veamos un ejemplo con la variable *Condición de inactividad* (v179).
 ```{r}
 # Observar valores NA para los primeros 5 casos
 head(is.na(NEA$v179), 5)
 ```
 
-Observe que de los cinco primeros casos, cuatro son NA. Ahora bien, en este caso ¿realmente son valores perdidos? Se debe tener en cuenta que no siempre se trata de valores perdidos como tales, ya que si observamos el formulario de encuesta del PISAC podemos notar que esta variable Condición de inactividad surge de una sucesión de preguntas, es decir, la condición de inactividad de la persona va a ser únicamente en el caso de que la persona se declare inactiva en la pregunta anterior. Por lo tanto, en esta variable los valores NA en realidad son valores que no corresponden y no valores perdidos. Esta aclaración es importante y se debe tener en cuenta al momento que nos encontremos con valores NA.
+Observe que de los cinco primeros casos, cuatro son NA. Ahora bien, en este caso ¿realmente son valores perdidos? Se debe tener en cuenta que no siempre se trata de valores perdidos como tales, ya que si observamos el formulario de encuesta del PISAC podemos notar que esta variable *Condición de inactividad* surge de una sucesión de preguntas, es decir, la condición de inactividad de la persona va a ser únicamente en el caso de que la persona se declare inactiva en la pregunta anterior. Por lo tanto, en esta variable los valores NA en realidad son valores que no corresponden y no valores perdidos. Esta aclaración es importante y se debe tener en cuenta al momento que nos encontremos con valores NA.
 Por otra parte, un inconveniente frecuente que suele suceder con estos valores surge cuando queremos realizar alguna medida de resumen numérica, por ejemplo el promedio. Si la variable tiene valores NA lo más probable es que el resultado sea “NA” y para resolver esto se utiliza el argumento na.rm. Observemos un ejemplo con la variable *Ingreso neto en ocupación principal* (v213bi). 
 ```{r}
 # Promedio de v213bi
@@ -166,12 +199,25 @@ mean(NEA$v213bi)
 mean(NEA$v213bi, na.rm = TRUE)
 ```
 
+Observe que el promedio de los ingresos de la ocupacion principal de las personas es considerablemente bajo debido a que ésta variable presenta muchos casos con ingresos de 0 pesos. Por lo tanto, para corregir este problema tendremos que filtrar los datos con solo aquellos que presenten ingresos mayores a 0. Entonces, procedemos a hacerlo de la siguiente manera:
+
+```{r}
+# Creamos la tabla filtrando
+Ing_ocup_ppal <- pisac %>% 
+  filter(v213bi > 0 &
+           !is.na(v213bi)) %>%  # filtramos tambien por los casos que no son NA
+  select(v213bi) # y seleccionamos solo esta variable 
+
+# Calculamos ahora el promedio
+mean(Ing_ocup_ppal$v213bi)
+```
+
 Otra caso particular con el que podemos encontrarnos al momento de manipular datos es la necesidad de convertir uno o más valores como NA. Por ejemplo, en nuestra base NEA la variable Edad se encuentra como tipo factor (categórica) y contiene dos valores “Menor de un año” y “99 años y más” que es necesario primero convertirlos en NA para poder hacer posteriormente el cambio de factor a numérica. Veamos el ejemplo:
 
 ```{r}
 # Convertimos los valores en NA
 NEA$Edad[NEA$Edad == "Menor de un año" |
-         NEA$Edad == "99 años y más"] <- NA
+         NEA$Edad == "99 años y más"] <- NA 
 
 # Pasamos primero de factor a character
 NEA$Edad <- as.character(NEA$Edad)
@@ -180,7 +226,7 @@ NEA$Edad <- as.character(NEA$Edad)
 NEA$Edad <- as.numeric(NEA$Edad)
 ```
 
-Ahora, es posible recodificar la variable Edad como lo hicimos anteriormente con la funcion *case_when*, creando una nueva variable con categoría de edades.
+Ahora, es posible recodificar la variable Edad como lo hicimos anteriormente con la funcion `case_when`, creando una nueva variable con categoría de edades.
 
 ```{r}
 # Primero observamos los valores para definir categorías
@@ -189,16 +235,17 @@ summary(NEA$Edad)
 ```{r}
 # Establecemos las categorías
 NEA <- NEA %>% 
-  mutate(Edad_recod = case_when(Edad %in% c(1:14) ~ "Menos de 15", 
-                                Edad %in% c(15:26) ~"15 a 26",       
-                                Edad %in% c(27:47) ~ "27 a 47",
-                                Edad %in% c(48:97) ~ "48 a 97"))
-```
-```{r}
-# Pasamos la nueva variable a factor y consultamos los valores para verificar 
-NEA$Edad_recod <- as.factor(NEA$Edad_recod)
+  mutate(Edad_recod = case_when(Edad %in% c(1:14)  ~ "Hasta 14", 
+                                Edad %in% c(15:64) ~ "de 15 a 64",       
+                                Edad %in% c(65:97) ~ "65 y más")) %>% 
+  mutate(Edad_recod = ordered(Edad_recod,
+                              levels = c("Hasta 14",
+                                         "de 15 a 64",
+                                         "65 y más")))
+# Consultamos los valores
 levels(NEA$Edad_recod)
 ```
+
 
 
 
@@ -212,3 +259,4 @@ MENDIZABAL S. “Taller de Introducción a R” (2017). Recuperado de: https://s
 WEKSLER G., KOZLOWSKI D., SHOKIDA N., “Curso de R para procesamiento de datos de la Encuesta Permanente de Hogares” (2018). Recuperado de: https://diegokoz.github.io/Curso_R_EPH_clases/
 
 </div>
+
