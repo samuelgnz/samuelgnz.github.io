@@ -43,14 +43,18 @@ NEA <- NEA %>% rename(Edad = v108,
 NEA <- NEA %>% mutate(Clase_recod = 
                case_when(v260a == "Clase baja" ~ "Clase baja",
                          v260a == "Clase obrera" ~ "Clase obrera",
-                         v260a == "Clase media baja" ~ "Clase media",
-                         v260a == "Clase media" ~ "Clase media",
-                         v260a == "Clase media alta" ~ "Clase media",
+                         v260a %in% c("Clase media baja",
+                                      "Clase media",
+                                      "Clase media alta") ~ "Clase media",
                          v260a == "Clase alta" ~ "Clase alta",
-                         v260a == "NS/NR" ~ "NS/NR"))
-# Pasamos la nueva variable a factor y consultamos los valores para verificar 
-NEA$Clase_recod <- as.factor(NEA$Clase_recod)
-levels(NEA$Clase_recod)
+                         v260a == "NS/NR" ~ "NS/NR")) %>% 
+  mutate(Clase_recod = ordered(Clase_recod,               
+                               levels = c("Clase baja",     # indicamos que se trata de 
+                                          "Clase obrera",   # una variable ordinal
+                                          "Clase media",    # y ordenamos los valores
+                                          "Clase alta",
+                                          "NS/NR")))
+
 # Convertimos los valores en NA
 NEA$Edad[NEA$Edad == "Menor de un año" |
          NEA$Edad == "99 años y más"] <- NA
@@ -62,19 +66,19 @@ NEA$Edad <- as.character(NEA$Edad)
 NEA$Edad <- as.numeric(NEA$Edad)
 # Establecemos las categorías
 NEA <- NEA %>% 
-  mutate(Edad_recod = case_when(Edad %in% c(1:14) ~ "Menos de 15", 
-                                Edad %in% c(15:26) ~"15 a 26",       
-                                Edad %in% c(27:47) ~ "27 a 47",
-                                Edad %in% c(48:97) ~ "48 a 97"))
+  mutate(Edad_recod = case_when(Edad %in% c(1:17)  ~ "Hasta 17", 
+                                Edad %in% c(18:35) ~ "de 18 a 35",
+                                Edad %in% c(36:97) ~ "36 y más")) %>% 
+  mutate(Edad_recod = ordered(Edad_recod,
+                              levels = c("Hasta 17", 
+                                         "de 18 a 35",
+                                         "36 y más")))
 ```
-```{r include=FALSE}
-# Pasamos la nueva variable a factor y consultamos los valores para verificar 
-NEA$Edad_recod <- as.factor(NEA$Edad_recod)
-```
+
 
 <div class=text-justify>
 ##Introducción
-Luego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete **ggplot2** que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.
+Luego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete `ggplot2` que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.
 
 ##Instalación
 Si ya tinstalamos previamente el paquete tidyverse no es necesario volver a realizar otra instalación, de lo contrario debe instalar el paquete ggplot2:
@@ -89,23 +93,24 @@ library(ggplot2)
 library(tidyverse)
 ```
 
-##La gramática de los gráficos (ggplot)
-La estructura básica de la función ggplot se compone por tres argumentos necesarios: ```data``` en el cuál indicamos el dataframe del cual vamos a seleccionar las variables para graficar;
-```aes``` dónde indicamos el mapeo estético, es decir, qué variables vamos a graficar y en qué ejes y 
-```geom``` hace referencia a las capas geométricas, que a su vez, va a depender del tipo de gráfico que deseemos generar. 
+##La gramática de los gráficos (ggplot2)
+La estructura básica de la función ggplot se compone por tres argumentos necesarios: 
+* `data` en el cuál indicamos el dataframe del cual vamos a seleccionar las variables para graficar;
+* ```aes``` dónde indicamos el mapeo estético, es decir, qué variables vamos a graficar y en qué ejes, y
+* `geom` hace referencia a las capas geométricas, que a su vez, va a depender del tipo de gráfico que deseemos generar. 
 Ejemplo: 
 ```{r, eval=FALSE}
 ggplot(data= dataframe, aes(x= variable1, y= variable2)) + geom_point
 ```
 
 #Gráfico de dispersión
-Hagamos la prueba con un gráfico de dispersión utilizando las variables Ingreso neto de la Ocupación Principal (v213bi) y la Edad. Pero, previamente vamos a crear un nuevo dataframe que va a contener solamente las variables que necesitamos en el gráfico. Para ello usaremos el paquete dplyr.
+Hagamos la prueba con un gráfico de dispersión utilizando las variables Ingreso neto de la Ocupación Principal (v213bi) y la Edad. Pero, previamente vamos a crear un nuevo dataframe que va a contener solamente las variables que necesitamos en el gráfico. Para ello usaremos el paquete `dplyr`.
 
 ```{r message=FALSE, warning=FALSE}
 #Abrimos la librería
 library(dplyr)
-data.graf1 <- NEA %>% filter(v213bi > 0,                  #filtramos solo los ingresos mayores a 0
-                             Edad >= 18,                  #y las edades mayores o iguales a 18 años
+data.graf1 <- NEA %>% filter(v213bi > 0 &                  #filtramos solo los ingresos mayores a 0
+                             Edad >= 18 &               #y las edades mayores o iguales a 18 años
                              !is.na(Clase_recod)) %>%     #omitimos los casos NA en Clase_recod 
   select(v213bi, Edad, Sexo, Clase_recod) %>%             #seleccionamos otras variables que necesitaremos para graficar
   rename(Clase = Clase_recod)                             #cambiamos el nombre de la variable
@@ -116,19 +121,13 @@ Entonces, a partir de este dataframe vamos a realizar el grafico:
 ggplot(data= data.graf1, aes(x= Edad, y= v213bi)) + geom_point()
 ```
 
-En un principio la estética del gráfico es bastante simple, pero podemos ir mejorando a nuestro gusto agregando más parámetros a la sintaxís de la función, utilizando siempre el símbolo ```+```.
+En un principio la estética del gráfico es bastante simple, pero podemos ir mejorando a nuestro gusto agregando más parámetros a la sintaxís de la función, utilizando siempre el símbolo `+`.
 
 #####Tabla 6
 |Parámetro            | Resultado                |
 |---------------------|--------------------------|
-|labs()               | Etiquetas                |
-|                     | title: titulo,           |
-|                     | x: etiqueta eje x,       |
-|                     | y: etiqueta eje y,       |
-|                     | caption: subtítulo       |
-|theme()              | tema del gráfico         |
-|                     | base_family: fuente,     |
-|                     | base_size: tamaño fuente,|
+|labs()               | Etiquetas: title= "titulo",    x= "etiqueta eje x",    y= "etiqueta eje y", caption= "texto al pie"|
+|theme()              | tema del gráfico: base_family= "fuente", base_size= tamaño fuente|
 |scale_x_continuous() | Ajustar eje x            |
 |scale_y_continuous() | Ajustar eje y            |
 |geom_point()         | Gráfico de dispersión    |
@@ -165,9 +164,8 @@ Grafico.1
 #Histograma
 Vamos a crear un histograma utilizando la variable Ingreso neto de la Ocupación Principal, pero primeramente creamos el dataframe que necesitamos para graficar.
 ```{r}
-data.graf2 <- NEA %>% filter(v213bi > 0,
-                             !is.na(Clase_recod),
-                             Edad_recod != "Menos de 15") %>% 
+data.graf2 <- NEA %>% filter(v213bi > 0 &
+                             !is.na(Clase_recod)) %>% 
   select(v213bi, Edad_recod, Clase_recod, f_calib3.x) %>% 
   rename(Edad = Edad_recod)
 ```
@@ -182,11 +180,8 @@ ggplot(data= data.graf2, aes(x= v213bi, weight= f_calib3.x)) +
   geom_histogram(aes(fill = Edad),
                  color = "white") #las lineas en color blanco
 ```
-Observe que ahora las frecuencias de las barras han aumentado porque se expandieron los casos, además las barras se dividen en función a los valores de la tercer variable Edad. También, como se habrá podido dar cuenta, las frecuencias de las barras del histograma están expresadas en valores absolutos. Si lo que deseamos es que las frecuencias se expresen valores porcentuales, necesitamos instalar adicionalmente el paquete ```scales```, que nos ayuda a modificar las escalas del eje y. 
-```{r, eval=FALSE}
-#Instalamos el paquete
-install.packages("scales")
-```
+Observe que ahora las frecuencias de las barras han aumentado porque se expandieron los casos, además las barras se dividen en función a los valores de la tercer variable Edad. También, como se habrá podido dar cuenta, las frecuencias de las barras del histograma están expresadas en valores absolutos. Si lo que deseamos es que las frecuencias se expresen valores porcentuales, necesitamos modificar la escala del del eje y. 
+
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 #Abrimos la librería
 library(scales)
@@ -221,41 +216,43 @@ levels(NEA$nivel_ed)
 
 #Recategorizamos
 NEA <- NEA %>% mutate(nivel_ed_recod =
-                        case_when(nivel_ed == "Menores de 5 años" ~ "Menores de 5 años",
-                                  nivel_ed == "Sin instrucción (incluye nunca asistió o sólo asistió a sala de 5)" ~ "Secundaria incompleta o menos",
-                                  nivel_ed == "Primaria/EGB incompleto" ~ "Secundaria incompleta o menos",
-                                  nivel_ed == "Secundario/Polimodal incompleto" ~ "Secundaria incompleta o menos",
+                        case_when(nivel_ed %in% c("Menores de 5 años",
+                                                  "Sin instrucción (incluye nunca asistió o sólo asistió a sala de 5)",
+                                                  "Primaria/EGB incompleto",
+                                                  "Primaria/EGB completo",
+                                                  "Secundario/Polimodal incompleto") ~ "Secundaria incompleta o menos",
                                   nivel_ed == "Secundario/Polimodal completo" ~ "Secundaria completa",
-                                  nivel_ed == "Terciario incompleto" ~ "Terc/Univ. incompleto",
-                                  nivel_ed == "Terciario completo" ~ "Terc/Univ. completo",
-                                  nivel_ed == "Universitario incompleto" ~ "Terc/Univ. incompleto",
-                                  nivel_ed == "Universitario completo" ~ "Terc/Univ. completo",
+                                  nivel_ed %in% c("Terciario incompleto",
+                                                  "Universitario incompleto") ~ "Terc/Univ. incompleto",
+                                  nivel_ed %in% c("Terciario completo",
+                                                  "Universitario completo") ~ "Terc/Univ. completo",
                                   nivel_ed == "Educación especial" ~ "Educación especial",
-                                  nivel_ed == "NS/NR" ~ "NS/NR"))
-#Pasamos la variable a factor
-NEA$nivel_ed_recod <- as.factor(NEA$nivel_ed_recod)
+                                  nivel_ed == "NS/NR" ~ "NS/NR")) %>% 
+  mutate(nivel_ed_recod = ordered(nivel_ed_recod,
+                                  levels = c("Secundaria incompleta o menos",
+                                             "Secundaria completa",
+                                             "Terc/Univ. incompleto",
+                                             "Terc/Univ. completo",
+                                             "Educación especial",
+                                             "NS/NR")))
 levels(NEA$nivel_ed_recod)
 ```
 
 Recategorizamos los valores en seis categorías, ahora procederemos a crear el dataframe para graficar:
 ```{r}
 data.graf3 <- NEA %>% 
-  filter(nivel_ed_recod %in% c("Secundaria completa",
-                               "Secundaria incompleta o menos",
-                               "Terc/Univ. completo",
-                               "Terc/Univ. incompleto") &
+  filter(nivel_ed_recod %in% c("Secundaria incompleta o menos",
+                               "Secundaria completa",
+                               "Terc/Univ. incompleto",
+                               "Terc/Univ. completo") &
            Sexo != "Otro" &
            Clase_recod != "Clase alta" &
            !is.na(Est_civil) &
            !is.na(Clase_recod)) %>% 
-  select(nivel_ed_recod, Sexo, Est_civil, f_calib3.x, Clase_recod) %>% 
-  mutate(nivel_ed_recod = factor(nivel_ed_recod, levels=c("Secundaria incompleta o menos",   #reordeno los valores para que queden ordenados en el grafico según las jerarquías
-                                      "Secundaria completa",
-                                      "Terc/Univ. incompleto",
-                                      "Terc/Univ. completo")))
+  select(nivel_ed_recod, Sexo, Est_civil, f_calib3.x, Clase_recod)
 ```
 
-Para este gráfico usamos ```geom_bar```:
+Para este gráfico usamos `geom_bar`:
 ```{r}
 ggplot(data.graf3, aes(x= nivel_ed_recod, weight = f_calib3.x)) + 
   geom_bar()
@@ -345,7 +342,7 @@ Grafico.4 <- Grafico.4 +
   theme_minimal(base_family = "serif",
                 base_size = 10) +
   labs(title = "Distribución del Ingreso neto de la Ocupación Principal (IOP) de las personas según la region 
-y la percepción del ingreso. NEA. 2015.",
+y la percepción del ingreso. Argentina. 2015.",
        y = "IOP ($)",
        caption = "Fuente: elaboración propia en base a PISAC") +
   theme(axis.text.x=element_blank())  #eliminamos valores del eje x

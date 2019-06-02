@@ -238,7 +238,7 @@
 
 <div class="text-justify">
 <h2 id="introduccion">Introducción</h2>
-<p>Luego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete <strong>ggplot2</strong> que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.</p>
+<p>Luego de haber visto como manipular los datos disponibles en la base de datos del PISAC, en esta etapa del proceso del análisis de datos nos centraremos en la visualización, generando graficos de calidad utilizando el paquete <code>ggplot2</code> que forma parte del conjunto de paquetes que integran el tidyverse. Conoceremos la estructura de la sintaxis de este paquete y los argumentos necesarios para obtener los graficos que deseamos.</p>
 <h2 id="instalacion">Instalación</h2>
 <p>Si ya tinstalamos previamente el paquete tidyverse no es necesario volver a realizar otra instalación, de lo contrario debe instalar el paquete ggplot2:</p>
 <pre class="r"><code>#Instalar paquete ggplot2
@@ -247,24 +247,28 @@ install.packages(&quot;ggplot2&quot;)</code></pre>
 library(ggplot2)
 #o abrimos el tidyverse
 library(tidyverse)</code></pre>
-<h2 id="la-gramatica-de-los-graficos-ggplot">La gramática de los gráficos (ggplot)</h2>
-<p>La estructura básica de la función ggplot se compone por tres argumentos necesarios: <code>data</code> en el cuál indicamos el dataframe del cual vamos a seleccionar las variables para graficar; <code>aes</code> dónde indicamos el mapeo estético, es decir, qué variables vamos a graficar y en qué ejes y <code>geom</code> hace referencia a las capas geométricas, que a su vez, va a depender del tipo de gráfico que deseemos generar. Ejemplo:</p>
+<h2 id="la-gramatica-de-los-graficos-ggplot2">La gramática de los gráficos (ggplot2)</h2>
+<p>La estructura básica de la función ggplot se compone por tres argumentos necesarios: * <code>data</code> en el cuál indicamos el dataframe del cual vamos a seleccionar las variables para graficar; * <code>aes</code> dónde indicamos el mapeo estético, es decir, qué variables vamos a graficar y en qué ejes, y * <code>geom</code> hace referencia a las capas geométricas, que a su vez, va a depender del tipo de gráfico que deseemos generar. Ejemplo:</p>
 <pre class="r"><code>ggplot(data= dataframe, aes(x= variable1, y= variable2)) + geom_point</code></pre>
 <h1 id="grafico-de-dispersion">Gráfico de dispersión</h1>
-<p>Hagamos la prueba con un gráfico de dispersión utilizando las variables Ingreso neto de la Ocupación Principal (v213bi) y la Edad. Pero, previamente vamos a crear un nuevo dataframe que va a contener solamente las variables que necesitamos en el gráfico. Para ello usaremos el paquete dplyr.</p>
+<p>Hagamos la prueba con un gráfico de dispersión utilizando las variables Ingreso neto de la Ocupación Principal (v213bi) y la Edad. Pero, previamente vamos a crear un nuevo dataframe que va a contener solamente las variables que necesitamos en el gráfico. Para ello usaremos el paquete <code>dplyr</code>.</p>
 <pre class="r"><code>#Abrimos la librería
 library(dplyr)
-data.graf1 &lt;- NEA %&gt;% filter(v213bi &gt; 0,                  #filtramos solo los ingresos mayores a 0
-                             Edad &gt;= 18,                  #y las edades mayores o iguales a 18 años
+data.graf1 &lt;- NEA %&gt;% filter(v213bi &gt; 0 &amp;                  #filtramos solo los ingresos mayores a 0
+                             Edad &gt;= 18 &amp;               #y las edades mayores o iguales a 18 años
                              !is.na(Clase_recod)) %&gt;%     #omitimos los casos NA en Clase_recod 
   select(v213bi, Edad, Sexo, Clase_recod) %&gt;%             #seleccionamos otras variables que necesitaremos para graficar
   rename(Clase = Clase_recod)                             #cambiamos el nombre de la variable</code></pre>
 <p>Entonces, a partir de este dataframe vamos a realizar el grafico:</p>
 <pre class="r"><code>ggplot(data= data.graf1, aes(x= Edad, y= v213bi)) + geom_point()</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>En un principio la estética del gráfico es bastante simple, pero podemos ir mejorando a nuestro gusto agregando más parámetros a la sintaxís de la función, utilizando siempre el símbolo <code>+</code>.</p>
 <h5 id="tabla-6">Tabla 6</h5>
-<table>
+<table style="width:68%;">
+<colgroup>
+<col width="30%" />
+<col width="37%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Parámetro</th>
@@ -274,35 +278,11 @@ data.graf1 &lt;- NEA %&gt;% filter(v213bi &gt; 0,                  #filtramos so
 <tbody>
 <tr class="odd">
 <td>labs()</td>
-<td>Etiquetas</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>title: titulo,</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>x: etiqueta eje x,</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>y: etiqueta eje y,</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>caption: subtítulo</td>
+<td>Etiquetas: title= “titulo”, x= “etiqueta eje x”, y= “etiqueta eje y”, caption= “texto al pie”</td>
 </tr>
 <tr class="even">
 <td>theme()</td>
-<td>tema del gráfico</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>base_family: fuente,</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>base_size: tamaño fuente,</td>
+<td>tema del gráfico: base_family= “fuente”, base_size= tamaño fuente</td>
 </tr>
 <tr class="odd">
 <td>scale_x_continuous()</td>
@@ -346,29 +326,28 @@ según la edad y la clase social de pertenencia. NEA. 2015.&quot;,
        caption = &quot;Fuente: elaboración propia en base al PISAC.&quot;) #agregamos etiquetas
 
 Grafico.1</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre><code>## Warning: Using shapes for an ordinal variable is not advised</code></pre>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Observe que además de agregar argumentos a la función, guardamos el gráfico en un objeto llamado <em>Grafico.1</em>. Ahora podemos seguir agregando argumentos a partir de este objeto.</p>
 <pre class="r"><code>Grafico.1 &lt;- Grafico.1 + geom_smooth(method = lm, se = FALSE) +  #incorporamos la recta de ajuste
   theme_classic(base_family = &quot;serif&quot;,     # agregamos un tema y modificamos la fuente
                 base_size = 10)
 Grafico.1</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre><code>## Warning: Using shapes for an ordinal variable is not advised</code></pre>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <h1 id="histograma">Histograma</h1>
 <p>Vamos a crear un histograma utilizando la variable Ingreso neto de la Ocupación Principal, pero primeramente creamos el dataframe que necesitamos para graficar.</p>
-<pre class="r"><code>data.graf2 &lt;- NEA %&gt;% filter(v213bi &gt; 0,
-                             !is.na(Clase_recod),
-                             Edad_recod != &quot;Menos de 15&quot;) %&gt;% 
+<pre class="r"><code>data.graf2 &lt;- NEA %&gt;% filter(v213bi &gt; 0 &amp;
+                             !is.na(Clase_recod)) %&gt;% 
   select(v213bi, Edad_recod, Clase_recod, f_calib3.x) %&gt;% 
   rename(Edad = Edad_recod)</code></pre>
 <p>Y graficamos en este caso usando <code>geom_histogram</code></p>
 <pre class="r"><code>ggplot(data= data.graf2, aes(x= v213bi)) + geom_histogram()</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-11-1.png" width="672" /> Podemos expandir los casos usando el argumento <code>weight</code>. Para esta base de datos, la variable ponderadora de casos es <em>factor de calibración</em> (f_calib3); por lo tanto, la incorporamos a la función y agregamos una segunda variable que es la Edad.</p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-10-1.png" width="672" /> Podemos expandir los casos usando el argumento <code>weight</code>. Para esta base de datos, la variable ponderadora de casos es <em>factor de calibración</em> (f_calib3); por lo tanto, la incorporamos a la función y agregamos una segunda variable que es la Edad.</p>
 <pre class="r"><code>ggplot(data= data.graf2, aes(x= v213bi, weight= f_calib3.x)) +
   geom_histogram(aes(fill = Edad),
                  color = &quot;white&quot;) #las lineas en color blanco</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-12-1.png" width="672" /> Observe que ahora las frecuencias de las barras han aumentado porque se expandieron los casos, además las barras se dividen en función a los valores de la tercer variable Edad. También, como se habrá podido dar cuenta, las frecuencias de las barras del histograma están expresadas en valores absolutos. Si lo que deseamos es que las frecuencias se expresen valores porcentuales, necesitamos instalar adicionalmente el paquete <code>scales</code>, que nos ayuda a modificar las escalas del eje y.</p>
-<pre class="r"><code>#Instalamos el paquete
-install.packages(&quot;scales&quot;)</code></pre>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-11-1.png" width="672" /> Observe que ahora las frecuencias de las barras han aumentado porque se expandieron los casos, además las barras se dividen en función a los valores de la tercer variable Edad. También, como se habrá podido dar cuenta, las frecuencias de las barras del histograma están expresadas en valores absolutos. Si lo que deseamos es que las frecuencias se expresen valores porcentuales, necesitamos modificar la escala del del eje y.</p>
 <pre class="r"><code>#Abrimos la librería
 library(scales)
 
@@ -379,7 +358,7 @@ Grafico.2 &lt;- ggplot(data= data.graf2, aes(x= v213bi, weight= f_calib3.x)) +
                  color = &quot;white&quot;,
                  breaks = seq(0,40000, by= 2500)) #definimos la amplitud de los intervalos
 Grafico.2</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-14-1.png" width="672" /> Modificamos los limites de los ejes, agregamos las etiquetas.</p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-12-1.png" width="672" /> Modificamos los limites de los ejes, agregamos las etiquetas.</p>
 <pre class="r"><code>Grafico.2 &lt;- Grafico.2 + 
   scale_x_continuous(limits = c(0,40000)) +
   scale_y_continuous(limits = c(0,40)) +
@@ -390,7 +369,7 @@ Grafico.2</code></pre>
   theme_bw(base_family = &quot;serif&quot;,
            base_size = 10)
 Grafico.2</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <h2 id="grafico-de-barras">Grafico de barras</h2>
 <p>Hagamos un grafico de barras con la variable <em>Nivel educativo</em> pero primero vamos a recategorizar los valores:</p>
 <pre class="r"><code>#Primero consultamos los valores
@@ -409,53 +388,55 @@ levels(NEA$nivel_ed)</code></pre>
 ## [12] &quot;NS/NR&quot;</code></pre>
 <pre class="r"><code>#Recategorizamos
 NEA &lt;- NEA %&gt;% mutate(nivel_ed_recod =
-                        case_when(nivel_ed == &quot;Menores de 5 años&quot; ~ &quot;Menores de 5 años&quot;,
-                                  nivel_ed == &quot;Sin instrucción (incluye nunca asistió o sólo asistió a sala de 5)&quot; ~ &quot;Secundaria incompleta o menos&quot;,
-                                  nivel_ed == &quot;Primaria/EGB incompleto&quot; ~ &quot;Secundaria incompleta o menos&quot;,
-                                  nivel_ed == &quot;Secundario/Polimodal incompleto&quot; ~ &quot;Secundaria incompleta o menos&quot;,
+                        case_when(nivel_ed %in% c(&quot;Menores de 5 años&quot;,
+                                                  &quot;Sin instrucción (incluye nunca asistió o sólo asistió a sala de 5)&quot;,
+                                                  &quot;Primaria/EGB incompleto&quot;,
+                                                  &quot;Primaria/EGB completo&quot;,
+                                                  &quot;Secundario/Polimodal incompleto&quot;) ~ &quot;Secundaria incompleta o menos&quot;,
                                   nivel_ed == &quot;Secundario/Polimodal completo&quot; ~ &quot;Secundaria completa&quot;,
-                                  nivel_ed == &quot;Terciario incompleto&quot; ~ &quot;Terc/Univ. incompleto&quot;,
-                                  nivel_ed == &quot;Terciario completo&quot; ~ &quot;Terc/Univ. completo&quot;,
-                                  nivel_ed == &quot;Universitario incompleto&quot; ~ &quot;Terc/Univ. incompleto&quot;,
-                                  nivel_ed == &quot;Universitario completo&quot; ~ &quot;Terc/Univ. completo&quot;,
+                                  nivel_ed %in% c(&quot;Terciario incompleto&quot;,
+                                                  &quot;Universitario incompleto&quot;) ~ &quot;Terc/Univ. incompleto&quot;,
+                                  nivel_ed %in% c(&quot;Terciario completo&quot;,
+                                                  &quot;Universitario completo&quot;) ~ &quot;Terc/Univ. completo&quot;,
                                   nivel_ed == &quot;Educación especial&quot; ~ &quot;Educación especial&quot;,
-                                  nivel_ed == &quot;NS/NR&quot; ~ &quot;NS/NR&quot;))
-#Pasamos la variable a factor
-NEA$nivel_ed_recod &lt;- as.factor(NEA$nivel_ed_recod)
+                                  nivel_ed == &quot;NS/NR&quot; ~ &quot;NS/NR&quot;)) %&gt;% 
+  mutate(nivel_ed_recod = ordered(nivel_ed_recod,
+                                  levels = c(&quot;Secundaria incompleta o menos&quot;,
+                                             &quot;Secundaria completa&quot;,
+                                             &quot;Terc/Univ. incompleto&quot;,
+                                             &quot;Terc/Univ. completo&quot;,
+                                             &quot;Educación especial&quot;,
+                                             &quot;NS/NR&quot;)))
 levels(NEA$nivel_ed_recod)</code></pre>
-<pre><code>## [1] &quot;Educación especial&quot;            &quot;Menores de 5 años&quot;            
-## [3] &quot;Secundaria completa&quot;           &quot;Secundaria incompleta o menos&quot;
-## [5] &quot;Terc/Univ. completo&quot;           &quot;Terc/Univ. incompleto&quot;</code></pre>
+<pre><code>## [1] &quot;Secundaria incompleta o menos&quot; &quot;Secundaria completa&quot;          
+## [3] &quot;Terc/Univ. incompleto&quot;         &quot;Terc/Univ. completo&quot;          
+## [5] &quot;Educación especial&quot;            &quot;NS/NR&quot;</code></pre>
 <p>Recategorizamos los valores en seis categorías, ahora procederemos a crear el dataframe para graficar:</p>
 <pre class="r"><code>data.graf3 &lt;- NEA %&gt;% 
-  filter(nivel_ed_recod %in% c(&quot;Secundaria completa&quot;,
-                               &quot;Secundaria incompleta o menos&quot;,
-                               &quot;Terc/Univ. completo&quot;,
-                               &quot;Terc/Univ. incompleto&quot;) &amp;
+  filter(nivel_ed_recod %in% c(&quot;Secundaria incompleta o menos&quot;,
+                               &quot;Secundaria completa&quot;,
+                               &quot;Terc/Univ. incompleto&quot;,
+                               &quot;Terc/Univ. completo&quot;) &amp;
            Sexo != &quot;Otro&quot; &amp;
            Clase_recod != &quot;Clase alta&quot; &amp;
            !is.na(Est_civil) &amp;
            !is.na(Clase_recod)) %&gt;% 
-  select(nivel_ed_recod, Sexo, Est_civil, f_calib3.x, Clase_recod) %&gt;% 
-  mutate(nivel_ed_recod = factor(nivel_ed_recod, levels=c(&quot;Secundaria incompleta o menos&quot;,   #reordeno los valores para que queden ordenados en el grafico según las jerarquías
-                                      &quot;Secundaria completa&quot;,
-                                      &quot;Terc/Univ. incompleto&quot;,
-                                      &quot;Terc/Univ. completo&quot;)))</code></pre>
+  select(nivel_ed_recod, Sexo, Est_civil, f_calib3.x, Clase_recod)</code></pre>
 <p>Para este gráfico usamos <code>geom_bar</code>:</p>
 <pre class="r"><code>ggplot(data.graf3, aes(x= nivel_ed_recod, weight = f_calib3.x)) + 
   geom_bar()</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Y comenzamos a mejorarlo…</p>
 <pre class="r"><code>Grafico.3 &lt;- ggplot(data.graf3, aes(x= nivel_ed_recod)) + 
   geom_bar(aes(y = ..count../sum(..count..)*100, 
                fill = Est_civil), 
            width = 0.5)   #disminuyo el ancho de las barras
 Grafico.3</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-19-1.png" width="672" /> Agregamos un tema y cambiamos la orientación de las barras:</p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-17-1.png" width="672" /> Agregamos un tema y cambiamos la orientación de las barras:</p>
 <pre class="r"><code>Grafico.3 &lt;- Grafico.3 +
   coord_flip()  #cambio la orientación de las barras a horizontal
 Grafico.3</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <h2 id="facetas">Facetas</h2>
 <p>Las facetas nos permiten separar la distribucion de la variable en sub-poblaciones en función a las categorías de otra u otras variables adicionales. Hay dos formas de dividir los gráficos en facetas; <code>facet_wrap()</code>: nos permite dividir las sub-poblaciones a partir de las categorías de una variable adicional; <code>facet_grid()</code>: nos permite dividir las sub-poblaciones a partir de las categorías de dos variables adicionales. Veamos algunos ejemplos continuando con el mismo gráfico.</p>
 <pre class="r"><code>Grafico.3.a &lt;- Grafico.3 +
@@ -468,7 +449,7 @@ civil y el sexo. NEA. 2015&quot;,
   theme_light(base_family = &quot;serif&quot;,
               base_size = 10)
 Grafico.3.a </code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>Incluyendo dos variables:</p>
 <pre class="r"><code>Grafico.3.b &lt;- Grafico.3 +
   facet_grid(Clase_recod ~ Sexo) +  #separamos los sub-grupos por las categorías de las variables Clase de pertenencia y Sexo
@@ -480,7 +461,7 @@ civil, el sexo y la clase social de pertenencia. NEA. 2015&quot;,
   theme_light(base_family = &quot;serif&quot;,
               base_size = 10)
 Grafico.3.b</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <h2 id="paletas-de-colores">Paletas de colores</h2>
 <p>Hay una serie de paletas que podemos añadir a los gráficos para cambiar los colores, indicando la paleta que más nos agrade dentro del argumento <code>scale_fill_brewer</code>. En este <a href="http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/figure/unnamed-chunk-14-1.png">enlace</a> puede apreciar algunas paletas del paquete <em>RColorBrewer</em>. A continuación, veamos un ejemplo de cómo incorporar una paleta de color, graficando un box-plot.</p>
 <h2 id="box-plot">Box-plot</h2>
@@ -492,12 +473,12 @@ Grafico.3.b</code></pre>
 
 #Graficamos
 ggplot(data= data.graf4, aes(y= v213bi, weight= f_calib3.x)) + geom_boxplot()</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Observemos la distribución del ingreso por región:</p>
 <pre class="r"><code>Grafico.4 &lt;- ggplot(data= data.graf4, aes(y= v213bi, weight= f_calib3.x)) + 
   geom_boxplot(aes(fill = region.x))
 Grafico.4</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-24-1.png" width="672" /> Agregamos la paleta <em>Set3</em> y dividimos por facetas:</p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-22-1.png" width="672" /> Agregamos la paleta <em>Set3</em> y dividimos por facetas:</p>
 <pre class="r"><code>Grafico.4 &lt;- Grafico.4 +
   scale_fill_brewer(palette = &quot;Set3&quot;,  #modificamos los colores cambiando de paleta
                     name = &quot;Región&quot;,
@@ -513,12 +494,12 @@ Grafico.4</code></pre>
   theme_minimal(base_family = &quot;serif&quot;,
                 base_size = 10) +
   labs(title = &quot;Distribución del Ingreso neto de la Ocupación Principal (IOP) de las personas según la region 
-y la percepción del ingreso. NEA. 2015.&quot;,
+y la percepción del ingreso. Argentina. 2015.&quot;,
        y = &quot;IOP ($)&quot;,
        caption = &quot;Fuente: elaboración propia en base a PISAC&quot;) +
   theme(axis.text.x=element_blank())  #eliminamos valores del eje x
   Grafico.4</code></pre>
-<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <h4 id="referencias">Referencias</h4>
 <p>Este post está basado en los siguientes aportes bobliográficos:</p>
 <p>WICKHAM H., GROLEMUND G. “R for Data Science” (2017). Recuperado de: <a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a></p>

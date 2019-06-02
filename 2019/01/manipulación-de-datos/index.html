@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Hugo 0.54.0 with theme Tranquilpeak 0.4.3-SNAPSHOT">
 <meta name="author" content="Samuel Gonzalez">
-<meta name="keywords" content="tech, R, R Ciencias Sociales, R Studio, Blog R, R Studio Ciencias Sociales, R Socioeconomía">
+<meta name="keywords" content=", R, R Ciencias Sociales, R Studio, Blog R, R Studio Ciencias Sociales, R Socioeconomía">
 <meta name="description" content="IntroducciónHasta este punto hemos visto como importar bases de datos y a partir de las funciones básicas realizamos una primera exploración a las bases. Además de la primera exploración, uno de los puntos importantes luego de importar dataframes, es la manipulación de los datos que contiene el dataframe con el que estamos trabajando. Es decir, verificar si los datos han sido cargados correctamente y decidir de qué manera adecuarlo a nuestros intereses de la investigación, así como también poder realizar resúmenes con estos datos.">
 
 
@@ -36,15 +36,15 @@
   
   
     
+      <meta property="article:tag" content="R">
+    
       <meta property="article:tag" content="Ciencias Sociales">
+    
+      <meta property="article:tag" content="dplyr">
     
       <meta property="article:tag" content="Datos">
     
       <meta property="article:tag" content="PISAC">
-    
-      <meta property="article:tag" content="R">
-    
-      <meta property="article:tag" content="dplyr">
     
       <meta property="article:tag" content="tidyverse">
     
@@ -363,7 +363,8 @@ pisac &lt;- personas %&gt;% left_join(., hogares, by = c(&quot;nocues&quot;, &qu
 NEA &lt;- pisac %&gt;% 
   filter(region.x == &quot;NEA (Chaco, Corrientes, Formosa y Misiones)&quot;) %&gt;% 
   select(v108, v109, v116, t_hogar, nivel_ed, v134a, 
-estado, v179, nocues, nhog, f_calib3.x, region.x, aglo.x, v12, v14, v15, v16, v19, v235i, v237, v259a, v260a, v213bi)</code></pre>
+estado, v179, nocues, nhog, f_calib3.x, region.x, aglo.x, v12, v14, v15, v16, v19, v235i, 
+v237, v259a, v260a, v213bi)</code></pre>
 <p>De esta manera, tendríamos creado un nuevo dataframe que se llama NEA y que contiene únicamente los casos correspondientes a la región del NEA y 23 variables que fueron seleccionadas del dataframe llamado pisac.</p>
 <h3 id="renombrar">Renombrar</h3>
 <p>Podemos cambiar los nombres a las variables con la función <code>rename</code>. A modo de ejemplo modifiquemos solo tres nombres de las variable v108 a Edad, v109 a Sexo y v116 a Est_civil.</p>
@@ -433,9 +434,9 @@ NEA &lt;- NEA %&gt;% mutate(Clase_recod =
                          v260a == &quot;Clase alta&quot; ~ &quot;Clase alta&quot;,
                          v260a == &quot;NS/NR&quot; ~ &quot;NS/NR&quot;)) %&gt;% 
   mutate(Clase_recod = ordered(Clase_recod,               
-                               levels = c(&quot;Clase baja&quot;,     # indicamos que se trata de una variable ordinal
-                                          &quot;Clase obrera&quot;,   # y ordenamos los valores
-                                          &quot;Clase media&quot;,
+                               levels = c(&quot;Clase baja&quot;,     # indicamos que se trata de 
+                                          &quot;Clase obrera&quot;,   # una variable ordinal
+                                          &quot;Clase media&quot;,    # y ordenamos los valores
                                           &quot;Clase alta&quot;,
                                           &quot;NS/NR&quot;)))
 # Consultamos los valores
@@ -480,17 +481,18 @@ summary(NEA$Edad)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##    1.00   14.00   26.00   31.43   47.00   97.00      34</code></pre>
 <pre class="r"><code># Establecemos las categorías
+# Establecemos las categorías
 NEA &lt;- NEA %&gt;% 
-  mutate(Edad_recod = case_when(Edad %in% c(1:14)  ~ &quot;Hasta 14&quot;, 
-                                Edad %in% c(15:64) ~ &quot;de 15 a 64&quot;,       
-                                Edad %in% c(65:97) ~ &quot;65 y más&quot;)) %&gt;% 
+  mutate(Edad_recod = case_when(Edad %in% c(1:17)  ~ &quot;Hasta 17&quot;, 
+                                Edad %in% c(18:35) ~ &quot;de 18 a 35&quot;,
+                                Edad %in% c(36:97) ~ &quot;36 y más&quot;)) %&gt;% 
   mutate(Edad_recod = ordered(Edad_recod,
-                              levels = c(&quot;Hasta 14&quot;,
-                                         &quot;de 15 a 64&quot;,
-                                         &quot;65 y más&quot;)))
+                              levels = c(&quot;Hasta 17&quot;, 
+                                         &quot;de 18 a 35&quot;,
+                                         &quot;36 y más&quot;)))
 # Consultamos los valores
 levels(NEA$Edad_recod)</code></pre>
-<pre><code>## [1] &quot;Hasta 14&quot;   &quot;de 15 a 64&quot; &quot;65 y más&quot;</code></pre>
+<pre><code>## [1] &quot;Hasta 17&quot;   &quot;de 18 a 35&quot; &quot;36 y más&quot;</code></pre>
 <h4 id="referencias">Referencias</h4>
 <p>Este post está basado en los siguientes aportes bobliográficos:</p>
 <p>WICKHAM H., GROLEMUND G. “R for Data Science” (2017). Recuperado de: <a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a></p>
@@ -509,15 +511,15 @@ levels(NEA$Edad_recod)</code></pre>
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">ETIQUETADO EN</span><br/>
                     
+  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+
   <a class="tag tag--primary tag--small" href="/tags/ciencias-sociales/">Ciencias Sociales</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/dplyr/">dplyr</a>
 
   <a class="tag tag--primary tag--small" href="/tags/datos/">Datos</a>
 
   <a class="tag tag--primary tag--small" href="/tags/pisac/">PISAC</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/dplyr/">dplyr</a>
 
   <a class="tag tag--primary tag--small" href="/tags/tidyverse/">tidyverse</a>
 

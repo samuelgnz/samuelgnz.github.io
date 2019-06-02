@@ -6,14 +6,12 @@ slug: manipulación-de-datos
 categories:
   - Curso R
 tags:
+  - R
   - Ciencias Sociales
+  - dplyr
   - Datos
   - PISAC
-  - R
-  - dplyr
   - tidyverse
-keywords:
-  - tech
 ---
 
 <div class=text-justify>
@@ -103,7 +101,8 @@ Entonces, a partir de esta nueva base pisac, que fue el resultado del emparejami
 NEA <- pisac %>% 
   filter(region.x == "NEA (Chaco, Corrientes, Formosa y Misiones)") %>% 
   select(v108, v109, v116, t_hogar, nivel_ed, v134a, 
-estado, v179, nocues, nhog, f_calib3.x, region.x, aglo.x, v12, v14, v15, v16, v19, v235i, v237, v259a, v260a, v213bi)
+estado, v179, nocues, nhog, f_calib3.x, region.x, aglo.x, v12, v14, v15, v16, v19, v235i, 
+v237, v259a, v260a, v213bi)
 ```
 
 De esta manera, tendríamos creado un nuevo dataframe que se llama NEA y que contiene únicamente los casos correspondientes a la región del NEA y 23 variables que fueron seleccionadas del dataframe llamado pisac.
@@ -172,9 +171,9 @@ NEA <- NEA %>% mutate(Clase_recod =
                          v260a == "Clase alta" ~ "Clase alta",
                          v260a == "NS/NR" ~ "NS/NR")) %>% 
   mutate(Clase_recod = ordered(Clase_recod,               
-                               levels = c("Clase baja",     # indicamos que se trata de una variable ordinal
-                                          "Clase obrera",   # y ordenamos los valores
-                                          "Clase media",
+                               levels = c("Clase baja",     # indicamos que se trata de 
+                                          "Clase obrera",   # una variable ordinal
+                                          "Clase media",    # y ordenamos los valores
                                           "Clase alta",
                                           "NS/NR")))
 # Consultamos los valores
@@ -234,14 +233,15 @@ summary(NEA$Edad)
 ```
 ```{r}
 # Establecemos las categorías
+# Establecemos las categorías
 NEA <- NEA %>% 
-  mutate(Edad_recod = case_when(Edad %in% c(1:14)  ~ "Hasta 14", 
-                                Edad %in% c(15:64) ~ "de 15 a 64",       
-                                Edad %in% c(65:97) ~ "65 y más")) %>% 
+  mutate(Edad_recod = case_when(Edad %in% c(1:17)  ~ "Hasta 17", 
+                                Edad %in% c(18:35) ~ "de 18 a 35",
+                                Edad %in% c(36:97) ~ "36 y más")) %>% 
   mutate(Edad_recod = ordered(Edad_recod,
-                              levels = c("Hasta 14",
-                                         "de 15 a 64",
-                                         "65 y más")))
+                              levels = c("Hasta 17", 
+                                         "de 18 a 35",
+                                         "36 y más")))
 # Consultamos los valores
 levels(NEA$Edad_recod)
 ```
