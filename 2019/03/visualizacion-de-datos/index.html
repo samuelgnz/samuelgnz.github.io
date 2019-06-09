@@ -254,11 +254,12 @@ library(tidyverse)</code></pre>
 <p>Hagamos la prueba con un gráfico de dispersión utilizando las variables Ingreso neto de la Ocupación Principal (v213bi) y la Edad. Pero, previamente vamos a crear un nuevo dataframe que va a contener solamente las variables que necesitamos en el gráfico. Para ello usaremos el paquete <code>dplyr</code>.</p>
 <pre class="r"><code>#Abrimos la librería
 library(dplyr)
-data.graf1 &lt;- NEA %&gt;% filter(v213bi &gt; 0 &amp;                  #filtramos solo los ingresos mayores a 0
-                             Edad &gt;= 18 &amp;               #y las edades mayores o iguales a 18 años
-                             !is.na(Clase_recod)) %&gt;%     #omitimos los casos NA en Clase_recod 
-  select(v213bi, Edad, Sexo, Clase_recod) %&gt;%             #seleccionamos otras variables que necesitaremos para graficar
-  rename(Clase = Clase_recod)                             #cambiamos el nombre de la variable</code></pre>
+data.graf1 &lt;- NEA %&gt;% filter(v213bi &gt; 0 &amp;             #filtramos solo los ingr. &gt; a 0
+                             Edad &gt;= 18 &amp;             #y las edades &gt; o = a 18 años
+                             !is.na(Clase_recod)) %&gt;% #omitimos los casos NA en Clase_recod 
+  select(v213bi, Edad, Sexo, Clase_recod) %&gt;%         #seleccionamos otras variables que 
+                                                      #necesitaremos para graficar
+  rename(Clase = Clase_recod)                         #cambiamos el nombre de la variable</code></pre>
 <p>Entonces, a partir de este dataframe vamos a realizar el grafico:</p>
 <pre class="r"><code>ggplot(data= data.graf1, aes(x= Edad, y= v213bi)) + geom_point()</code></pre>
 <p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
@@ -354,15 +355,16 @@ library(scales)
 #Ahora procedemos a modificar las frecuencias
 Grafico.2 &lt;- ggplot(data= data.graf2, aes(x= v213bi, weight= f_calib3.x)) +
   geom_histogram(aes(fill = Edad,
-                     y= stat(..count..)/sum(..count..)*100), #con este argumento cambiamos a valores porcentuales
+                     y= stat(..count..)/sum(..count..)*100), #cambiamos eje a %
                  color = &quot;white&quot;,
-                 breaks = seq(0,40000, by= 2500)) #definimos la amplitud de los intervalos
+                 breaks = seq(0,40000, by= 2500)) #definimos amplitud de intervalos
 Grafico.2</code></pre>
 <p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-12-1.png" width="672" /> Modificamos los limites de los ejes, agregamos las etiquetas.</p>
 <pre class="r"><code>Grafico.2 &lt;- Grafico.2 + 
   scale_x_continuous(limits = c(0,40000)) +
   scale_y_continuous(limits = c(0,40)) +
-  labs(title = &quot;Distribución del Ingreso de la Ocupación Principal de las personas según la edad. NEA. 2015.&quot;,
+  labs(title = &quot;Distribución del Ingreso de la Ocupación Principal de las personas según
+la edad. NEA. 2015.&quot;,
        x= &quot;IOP ($)&quot;,
        y= &quot;Personas (%)&quot;,
        caption = &quot;Fuente: elaboración propia en base a PISAC&quot;) +
@@ -388,18 +390,21 @@ levels(NEA$nivel_ed)</code></pre>
 ## [12] &quot;NS/NR&quot;</code></pre>
 <pre class="r"><code>#Recategorizamos
 NEA &lt;- NEA %&gt;% mutate(nivel_ed_recod =
-                        case_when(nivel_ed %in% c(&quot;Menores de 5 años&quot;,
-                                                  &quot;Sin instrucción (incluye nunca asistió o sólo asistió a sala de 5)&quot;,
-                                                  &quot;Primaria/EGB incompleto&quot;,
-                                                  &quot;Primaria/EGB completo&quot;,
-                                                  &quot;Secundario/Polimodal incompleto&quot;) ~ &quot;Secundaria incompleta o menos&quot;,
-                                  nivel_ed == &quot;Secundario/Polimodal completo&quot; ~ &quot;Secundaria completa&quot;,
-                                  nivel_ed %in% c(&quot;Terciario incompleto&quot;,
-                                                  &quot;Universitario incompleto&quot;) ~ &quot;Terc/Univ. incompleto&quot;,
-                                  nivel_ed %in% c(&quot;Terciario completo&quot;,
-                                                  &quot;Universitario completo&quot;) ~ &quot;Terc/Univ. completo&quot;,
-                                  nivel_ed == &quot;Educación especial&quot; ~ &quot;Educación especial&quot;,
-                                  nivel_ed == &quot;NS/NR&quot; ~ &quot;NS/NR&quot;)) %&gt;% 
+                        case_when(
+                          nivel_ed %in% c(&quot;Menores de 5 años&quot;,
+                                          &quot;Sin instrucción (incluye nunca asistió o sólo asistió 
+                                          a sala de 5)&quot;,
+                                          &quot;Primaria/EGB incompleto&quot;,
+                                          &quot;Primaria/EGB completo&quot;,
+                                          &quot;Secundario/Polimodal incompleto&quot;) ~ 
+                            &quot;Secundaria incompleta o menos&quot;,
+                          nivel_ed == &quot;Secundario/Polimodal completo&quot; ~ &quot;Secundaria completa&quot;,
+                          nivel_ed %in% c(&quot;Terciario incompleto&quot;,
+                                          &quot;Universitario incompleto&quot;) ~ &quot;Terc/Univ. incompleto&quot;,
+                          nivel_ed %in% c(&quot;Terciario completo&quot;,
+                                          &quot;Universitario completo&quot;) ~ &quot;Terc/Univ. completo&quot;,
+                          nivel_ed == &quot;Educación especial&quot; ~ &quot;Educación especial&quot;,
+                          nivel_ed == &quot;NS/NR&quot; ~ &quot;NS/NR&quot;)) %&gt;% 
   mutate(nivel_ed_recod = ordered(nivel_ed_recod,
                                   levels = c(&quot;Secundaria incompleta o menos&quot;,
                                              &quot;Secundaria completa&quot;,
@@ -440,9 +445,10 @@ Grafico.3</code></pre>
 <h2 id="facetas">Facetas</h2>
 <p>Las facetas nos permiten separar la distribucion de la variable en sub-poblaciones en función a las categorías de otra u otras variables adicionales. Hay dos formas de dividir los gráficos en facetas; <code>facet_wrap()</code>: nos permite dividir las sub-poblaciones a partir de las categorías de una variable adicional; <code>facet_grid()</code>: nos permite dividir las sub-poblaciones a partir de las categorías de dos variables adicionales. Veamos algunos ejemplos continuando con el mismo gráfico.</p>
 <pre class="r"><code>Grafico.3.a &lt;- Grafico.3 +
-  facet_wrap(~Sexo) +  #separamos los sub-grupos por las categorías de la variable Sexo
-  labs(title= &quot;Distribución del nivel educativo de las personas según el estado 
-civil y el sexo. NEA. 2015&quot;,
+  facet_wrap(~Sexo) +  #separamos los sub-grupos por las 
+                       #categorías de la variable Sexo
+  labs(title= &quot;Distribución del nivel educativo de las 
+personas según el estado civil y el sexo. NEA. 2015&quot;,
        x= &quot;Nivel educativo&quot;,
        y= &quot;Personas (%)&quot;,
        caption = &quot;Fuente: elaboración propia en base a PISAC.&quot;) +
@@ -452,7 +458,8 @@ Grafico.3.a </code></pre>
 <p><img src="/post/2019-03-20-visualizacion-de-datos_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>Incluyendo dos variables:</p>
 <pre class="r"><code>Grafico.3.b &lt;- Grafico.3 +
-  facet_grid(Clase_recod ~ Sexo) +  #separamos los sub-grupos por las categorías de las variables Clase de pertenencia y Sexo
+  facet_grid(Clase_recod ~ Sexo) + #separamos los sub-grupos por las 
+                                   #categorías de las var. Clase_recod y Sexo
   labs(title= &quot;Distribución del nivel educativo de las personas según el estado 
 civil, el sexo y la clase social de pertenencia. NEA. 2015&quot;,
        x= &quot;Nivel educativo&quot;,
@@ -493,8 +500,8 @@ Grafico.4</code></pre>
   scale_y_continuous(limits = c(0,40000)) +  #restringimos los ingresos hasta 40000 pesos
   theme_minimal(base_family = &quot;serif&quot;,
                 base_size = 10) +
-  labs(title = &quot;Distribución del Ingreso neto de la Ocupación Principal (IOP) de las personas según la region 
-y la percepción del ingreso. Argentina. 2015.&quot;,
+  labs(title = &quot;Distribución del Ingreso neto de la Ocupación Principal (IOP) de las 
+personas según la region y la percepción del ingreso. Argentina. 2015.&quot;,
        y = &quot;IOP ($)&quot;,
        caption = &quot;Fuente: elaboración propia en base a PISAC&quot;) +
   theme(axis.text.x=element_blank())  #eliminamos valores del eje x
@@ -608,9 +615,16 @@ y la percepción del ingreso. Argentina. 2015.&quot;,
 
             
               
-                <div id="disqus_thread">
-  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+                <div id="disqus_thread"></div>
+<script>
+(function() {
+var d = document, s = d.createElement('script');
+s.src = 'https://samuelgnz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
               
             
           </div>
@@ -887,7 +901,7 @@ $(document).ready(function() {
             return;
           }
           var d = document, s = d.createElement('script');
-          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          var disqus_shortname = 'samuelgnz';
           s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
 
           s.setAttribute('data-timestamp', +new Date());

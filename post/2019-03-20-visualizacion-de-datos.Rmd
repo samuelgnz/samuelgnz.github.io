@@ -3,7 +3,7 @@ title: Visualización de datos
 author: Samuel González
 date: '2019-03-20'
 slug: visualizacion-de-datos
-categories:
+categories: 
   - Curso R
 tags:
   - Ciencias Sociales
@@ -14,6 +14,7 @@ tags:
   - ggplot2
   - visualizacion
 ---
+
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 # Primero abrimos la librería del paquete foreign
 library(foreign)
@@ -109,11 +110,12 @@ Hagamos la prueba con un gráfico de dispersión utilizando las variables Ingres
 ```{r message=FALSE, warning=FALSE}
 #Abrimos la librería
 library(dplyr)
-data.graf1 <- NEA %>% filter(v213bi > 0 &                  #filtramos solo los ingresos mayores a 0
-                             Edad >= 18 &               #y las edades mayores o iguales a 18 años
-                             !is.na(Clase_recod)) %>%     #omitimos los casos NA en Clase_recod 
-  select(v213bi, Edad, Sexo, Clase_recod) %>%             #seleccionamos otras variables que necesitaremos para graficar
-  rename(Clase = Clase_recod)                             #cambiamos el nombre de la variable
+data.graf1 <- NEA %>% filter(v213bi > 0 &             #filtramos solo los ingr. > a 0
+                             Edad >= 18 &             #y las edades > o = a 18 años
+                             !is.na(Clase_recod)) %>% #omitimos los casos NA en Clase_recod 
+  select(v213bi, Edad, Sexo, Clase_recod) %>%         #seleccionamos otras variables que 
+                                                      #necesitaremos para graficar
+  rename(Clase = Clase_recod)                         #cambiamos el nombre de la variable
 ```
 
 Entonces, a partir de este dataframe vamos a realizar el grafico:
@@ -189,9 +191,9 @@ library(scales)
 #Ahora procedemos a modificar las frecuencias
 Grafico.2 <- ggplot(data= data.graf2, aes(x= v213bi, weight= f_calib3.x)) +
   geom_histogram(aes(fill = Edad,
-                     y= stat(..count..)/sum(..count..)*100), #con este argumento cambiamos a valores porcentuales
+                     y= stat(..count..)/sum(..count..)*100), #cambiamos eje a %
                  color = "white",
-                 breaks = seq(0,40000, by= 2500)) #definimos la amplitud de los intervalos
+                 breaks = seq(0,40000, by= 2500)) #definimos amplitud de intervalos
 Grafico.2
 ```
 Modificamos los limites de los ejes, agregamos las etiquetas.
@@ -199,7 +201,8 @@ Modificamos los limites de los ejes, agregamos las etiquetas.
 Grafico.2 <- Grafico.2 + 
   scale_x_continuous(limits = c(0,40000)) +
   scale_y_continuous(limits = c(0,40)) +
-  labs(title = "Distribución del Ingreso de la Ocupación Principal de las personas según la edad. NEA. 2015.",
+  labs(title = "Distribución del Ingreso de la Ocupación Principal de las personas según
+la edad. NEA. 2015.",
        x= "IOP ($)",
        y= "Personas (%)",
        caption = "Fuente: elaboración propia en base a PISAC") +
@@ -216,18 +219,21 @@ levels(NEA$nivel_ed)
 
 #Recategorizamos
 NEA <- NEA %>% mutate(nivel_ed_recod =
-                        case_when(nivel_ed %in% c("Menores de 5 años",
-                                                  "Sin instrucción (incluye nunca asistió o sólo asistió a sala de 5)",
-                                                  "Primaria/EGB incompleto",
-                                                  "Primaria/EGB completo",
-                                                  "Secundario/Polimodal incompleto") ~ "Secundaria incompleta o menos",
-                                  nivel_ed == "Secundario/Polimodal completo" ~ "Secundaria completa",
-                                  nivel_ed %in% c("Terciario incompleto",
-                                                  "Universitario incompleto") ~ "Terc/Univ. incompleto",
-                                  nivel_ed %in% c("Terciario completo",
-                                                  "Universitario completo") ~ "Terc/Univ. completo",
-                                  nivel_ed == "Educación especial" ~ "Educación especial",
-                                  nivel_ed == "NS/NR" ~ "NS/NR")) %>% 
+                        case_when(
+                          nivel_ed %in% c("Menores de 5 años",
+                                          "Sin instrucción (incluye nunca asistió o sólo asistió 
+                                          a sala de 5)",
+                                          "Primaria/EGB incompleto",
+                                          "Primaria/EGB completo",
+                                          "Secundario/Polimodal incompleto") ~ 
+                            "Secundaria incompleta o menos",
+                          nivel_ed == "Secundario/Polimodal completo" ~ "Secundaria completa",
+                          nivel_ed %in% c("Terciario incompleto",
+                                          "Universitario incompleto") ~ "Terc/Univ. incompleto",
+                          nivel_ed %in% c("Terciario completo",
+                                          "Universitario completo") ~ "Terc/Univ. completo",
+                          nivel_ed == "Educación especial" ~ "Educación especial",
+                          nivel_ed == "NS/NR" ~ "NS/NR")) %>% 
   mutate(nivel_ed_recod = ordered(nivel_ed_recod,
                                   levels = c("Secundaria incompleta o menos",
                                              "Secundaria completa",
@@ -278,9 +284,10 @@ Las facetas nos permiten separar la distribucion de la variable en sub-poblacion
 Veamos algunos ejemplos continuando con el mismo gráfico.
 ```{r}
 Grafico.3.a <- Grafico.3 +
-  facet_wrap(~Sexo) +  #separamos los sub-grupos por las categorías de la variable Sexo
-  labs(title= "Distribución del nivel educativo de las personas según el estado 
-civil y el sexo. NEA. 2015",
+  facet_wrap(~Sexo) +  #separamos los sub-grupos por las 
+                       #categorías de la variable Sexo
+  labs(title= "Distribución del nivel educativo de las 
+personas según el estado civil y el sexo. NEA. 2015",
        x= "Nivel educativo",
        y= "Personas (%)",
        caption = "Fuente: elaboración propia en base a PISAC.") +
@@ -292,7 +299,8 @@ Grafico.3.a
 Incluyendo dos variables:
 ```{r}
 Grafico.3.b <- Grafico.3 +
-  facet_grid(Clase_recod ~ Sexo) +  #separamos los sub-grupos por las categorías de las variables Clase de pertenencia y Sexo
+  facet_grid(Clase_recod ~ Sexo) + #separamos los sub-grupos por las 
+                                   #categorías de las var. Clase_recod y Sexo
   labs(title= "Distribución del nivel educativo de las personas según el estado 
 civil, el sexo y la clase social de pertenencia. NEA. 2015",
        x= "Nivel educativo",
@@ -341,8 +349,8 @@ Grafico.4 <- Grafico.4 +
   scale_y_continuous(limits = c(0,40000)) +  #restringimos los ingresos hasta 40000 pesos
   theme_minimal(base_family = "serif",
                 base_size = 10) +
-  labs(title = "Distribución del Ingreso neto de la Ocupación Principal (IOP) de las personas según la region 
-y la percepción del ingreso. Argentina. 2015.",
+  labs(title = "Distribución del Ingreso neto de la Ocupación Principal (IOP) de las 
+personas según la region y la percepción del ingreso. Argentina. 2015.",
        y = "IOP ($)",
        caption = "Fuente: elaboración propia en base a PISAC") +
   theme(axis.text.x=element_blank())  #eliminamos valores del eje x
