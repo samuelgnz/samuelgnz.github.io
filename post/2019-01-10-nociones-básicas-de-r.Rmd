@@ -239,15 +239,15 @@ summary(hogares$v235i)
 
 
 #### Referencias
-Este post está basado en los siguientes aportes bobliográficos:
+Este post está basado en los siguientes materiales:
 
-WICKHAM H., GROLEMUND G. "R for Data Science" (2017).
+> WICKHAM H., GROLEMUND G. "R for Data Science" (2017).
 Recuperado de: https://r4ds.had.co.nz/
 
-MENDIZABAL S. "Taller de Introducción a R" (2017).
+> MENDIZABAL S. "Taller de Introducción a R" (2017).
 Recuperado de: https://songeo.github.io/introduccion-r-bookdown/
 
-WEKSLER G., KOZLOWSKI D., SHOKIDA N., "Curso de R para procesamiento de datos de la Encuesta Permanente de Hogares" (2018).
+> WEKSLER G., KOZLOWSKI D., SHOKIDA N., "Curso de R para procesamiento de datos de la Encuesta Permanente de Hogares" (2018).
 Recuperado de: https://diegokoz.github.io/Curso_R_EPH_clases/
 
 </div>

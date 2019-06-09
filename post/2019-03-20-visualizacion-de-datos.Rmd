@@ -360,16 +360,16 @@ personas según la region y la percepción del ingreso. Argentina. 2015.",
 
 
 #### Referencias
-Este post está basado en los siguientes aportes bobliográficos:
+Este post está basado en los siguientes materiales:
 
-WICKHAM H., GROLEMUND G. "R for Data Science" (2017).
+> WICKHAM H., GROLEMUND G. "R for Data Science" (2017).
 Recuperado de: https://r4ds.had.co.nz/
 
-WEKSLER G., KOZLOWSKI D., SHOKIDA N., "Curso de R para procesamiento de datos de la Encuesta Permanente de Hogares" (2018).
+> WEKSLER G., KOZLOWSKI D., SHOKIDA N., "Curso de R para procesamiento de datos de la Encuesta Permanente de Hogares" (2018).
 Recuperado de: https://diegokoz.github.io/Curso_R_EPH_clases/
 
-MANGINI F., "6 TIPS TO MAKE YOUR VISUALIZATIONS LOOK PROFESSIONAL [UPDATED]" (2018).
+> MANGINI F., "6 TIPS TO MAKE YOUR VISUALIZATIONS LOOK PROFESSIONAL [UPDATED]" (2018).
 Recuperado de: http://www.thinkingondata.com/6-tips-to-make-your-visualizations-look-professional/
 
-THE R GRAPH GALLERY. "GENERAL GGPLOT2 TIPS". Recuperado de: https://www.r-graph-gallery.com/portfolio/ggplot2-package/ 
+> THE R GRAPH GALLERY. "GENERAL GGPLOT2 TIPS". Recuperado de: https://www.r-graph-gallery.com/portfolio/ggplot2-package/ 
 </div>
